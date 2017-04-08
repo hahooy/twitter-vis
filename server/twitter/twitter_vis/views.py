@@ -14,7 +14,7 @@ def index(request):
 
 
 @csrf_exempt
-def test(request):
+def tweets_states(request):
     SQL = """select s.name as name, 
                     s.abbreviation as abbreviation,
                     s.statefp as statefp, 
