@@ -1,0 +1,1 @@
+virtualenv twitter_env
