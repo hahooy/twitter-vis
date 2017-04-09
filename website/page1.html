@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="project.css">
+</head>
+
+<body>
+<div class="slider"></div>
+<div id="mapvis" style="position: center; width: 700px; height: 500px;"></div>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <!-- I recommend you host this file on your own, since this will change without warning -->
+  <script src="http://datamaps.github.io/scripts/datamaps.usa.min.js"></script>
+    <script src="generateMap.js"></script>
+  
+    
+   <script>
+   generateMap("tweets_state.csv")
+   </script>
+</body>
+
+</html>

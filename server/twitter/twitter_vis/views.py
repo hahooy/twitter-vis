@@ -25,7 +25,7 @@ def tweets_states(request):
                 join state as s on c.statefp = s.statefp 
                 group by (s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
     ret = []
-    with psycopg2.connect(database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER']) as conn:
+    with psycopg2.connect(host=settings.DATABASES['default']['HOST'], database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER'], password=settings.DATABASES['default']['PASSWORD']) as conn:
         with conn.cursor() as cur:
             cur.execute(SQL)
             for i in cur.fetchall():
