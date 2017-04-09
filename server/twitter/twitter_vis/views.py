@@ -4,9 +4,7 @@ import psycopg2
 
 from django.conf import settings
 from django.http import HttpResponse
-from django.shortcuts import render, render_to_response
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.gis.measure import Distance
 
 def index(request):
     return HttpResponse(json.dumps('hello world!'))

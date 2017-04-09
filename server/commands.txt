@@ -1,1 +1,23 @@
+# Create python environment
 virtualenv twitter_env
+source twitter_env/bin/activate
+sudo apt install libpq-dev python-dev
+
+# Setup EC2
+ssh bus
+sudo apt-get update
+sudo apt-get install postgresql postgresql-contrib
+sudo apt-get install postgis
+sudo -u postgres psql
+
+# DB
+pg_dump --no-owner -C team17_ratingbias > pj1.sql
+scp pj1.sql bus:~
+psql -f pj1.sql
+
+# Run django server
+python manage.py runserver 0.0.0.0:8000
+
+# URL
+http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/
+http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/tweets_states/
