@@ -9,18 +9,21 @@
   crossorigin="anonymous"></script>
   <script>
 
+// The wordCloud function is adopted from this reference: http://bl.ocks.org/jwhitfieldseed/9697914
 //Simple animated example of d3-cloud - https://github.com/jasondavies/d3-cloud
 //Based on https://github.com/jasondavies/d3-cloud/blob/master/examples/simple.html
 
 // Encapsulate the word cloud functionality
-function wordCloud(selector) {
+function wordCloud(selector, width, height) {
 
     var fill = d3.scale.category20();
+    var enterDuration = 600;
+    var exitDuration = 200;
 
     //Construct the word cloud's SVG element
     var svg = d3.select(selector).append("svg")
-        .attr("width", 500)
-        .attr("height", 500)
+        .attr("width", width)
+        .attr("height", height)
         .append("g")
         .attr("transform", "translate(250,250)");
 
@@ -42,7 +45,7 @@ function wordCloud(selector) {
         //Entering and existing words
         cloud
             .transition()
-                .duration(600)
+                .duration(enterDuration)
                 .style("font-size", function(d) { return d.size + "px"; })
                 .attr("transform", function(d) {
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
@@ -52,7 +55,7 @@ function wordCloud(selector) {
         //Exiting words
         cloud.exit()
             .transition()
-                .duration(200)
+                .duration(exitDuration)
                 .style('fill-opacity', 1e-6)
                 .attr('font-size', 1)
                 .remove();
@@ -68,7 +71,13 @@ function wordCloud(selector) {
         //The outside world will need to call this function, so make it part
         // of the wordCloud return value.
         update: function(words) {
-            d3.layout.cloud().size([500, 500])
+            // Normalize the word sizes to be from 0 to 20% of min(width, height).
+            var maxSize = Math.max.apply(null, words.map(function(word) {return word.size;}));
+            words = words.map(function(word) {
+                word.size = word.size / maxSize * 0.2 * Math.min(width, height);
+                return word;
+            });
+            d3.layout.cloud().size([width, height])
                 .words(words)
                 .padding(5)
                 .rotate(function() { return ~~(Math.random() * 2) * 90; })
@@ -82,12 +91,12 @@ function wordCloud(selector) {
 }
 
 //Create a new instance of the word cloud visualisation.
-var myWordCloud = wordCloud('body');
+var myWordCloud = wordCloud('body', 500, 500);
 
-$.get( "http://127.0.0.1:8000/twitter_vis/tweets_states/", { d: "2017-03-16"} )
+$.get( "http://127.0.0.1:8000/twitter_vis/tweets_states/", { date: "2017-03-16"} )
   .done(function( data ) {
-    myWordCloud.update(JSON.parse(data)[5]['hashtags']);
-    console.log( JSON.parse(data)[5]['hashtags'] );
+    myWordCloud.update(JSON.parse(data)[0]['hashtags']);
+    console.log( JSON.parse(data)[0]['hashtags'] );
   });
 
 </script>

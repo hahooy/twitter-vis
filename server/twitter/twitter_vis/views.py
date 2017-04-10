@@ -3,9 +3,13 @@ from datetime import date
 import json
 import psycopg2
 
+from nltk.corpus import stopwords
+
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+
+stopWordsEn = stopwords.words("english")
 
 def index(request):
     return HttpResponse(json.dumps('hello world!'))
@@ -37,7 +41,7 @@ def tweets_states(request):
     if hashtag is not None and d is not None:
         SQL = """
             with filtered_tweet as (
-                select * from tweet as t join tweet_has_hashtag as thh on t.id = thh.id
+                select t.* from tweet as t join tweet_has_hashtag as thh on t.id = thh.id
                 where thh.hashtag = %s and t.publish_date = %s
             )
             select s.name as name, 
@@ -60,7 +64,7 @@ def tweets_states(request):
     elif hashtag is not None:
         SQL = """
             with filtered_tweet as (
-                select * from tweet as t join tweet_has_hashtag as thh on t.id = thh.id
+                select t.* from tweet as t join tweet_has_hashtag as thh on t.id = thh.id
                 where thh.hashtag = %s
             )
             select s.name as name, 
@@ -83,7 +87,7 @@ def tweets_states(request):
     elif d is not None:
         SQL = """
             with filtered_tweet as (
-                select * from tweet as t join tweet_has_hashtag as thh on t.id = thh.id
+                select t.* from tweet as t join tweet_has_hashtag as thh on t.id = thh.id
                 where t.publish_date = %s
             )
             select s.name as name, 
@@ -124,6 +128,7 @@ def tweets_states(request):
     ret = []
     with psycopg2.connect(host=settings.DATABASES['default']['HOST'], database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER'], password=settings.DATABASES['default']['PASSWORD']) as conn:
         with conn.cursor() as cur:
+            print params
             cur.execute(SQL, params)
             for i in cur.fetchall():
                 ret.append({'name':i[0],
@@ -136,7 +141,7 @@ def tweets_states(request):
                             'total_neu_tweet':int(i[7]),
                             'total_pos_tweet':int(i[8]),                                                                                    
                             'avg_sentiment':float(i[9]),
-                            'hashtags':[{'text': i[0], 'size': i[1] / 100.0} for i in Counter(i[10].split()).most_common()[:20]]})
+                            'hashtags':[{'text': i[0], 'size': i[1]} for i in Counter(i[10].split()).most_common()[:20]]})
 
     return HttpResponse(json.dumps(ret))
 
