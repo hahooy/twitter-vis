@@ -25,7 +25,7 @@ function wordCloud(selector, width, height) {
         .attr("width", width)
         .attr("height", height)
         .append("g")
-        .attr("transform", "translate(250,250)");
+        .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")");
 
 
     //Draw the word cloud
@@ -91,7 +91,7 @@ function wordCloud(selector, width, height) {
 }
 
 //Create a new instance of the word cloud visualisation.
-var myWordCloud = wordCloud('body', 500, 500);
+var myWordCloud = wordCloud('body', 1000, 500);
 
 $.get( "http://127.0.0.1:8000/twitter_vis/tweets_states/", { date: "2017-03-16"} )
   .done(function( data ) {
