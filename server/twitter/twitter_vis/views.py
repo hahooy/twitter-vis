@@ -1,3 +1,4 @@
+from collections import Counter
 from datetime import date
 import json
 import psycopg2
@@ -48,10 +49,12 @@ def tweets_states(request):
                     sum(case when t.sentiment = 0 then 1 else 0 end) as num_neg_tweet,
                     sum(case when t.sentiment = 2 then 1 else 0 end) as num_neu_tweet,
                     sum(case when t.sentiment = 4 then 1 else 0 end) as num_pos_tweet,                    
-                    avg(t.sentiment) as avg_sentiment 
+                    avg(t.sentiment) as avg_sentiment,
+                    string_agg(hashtag, ' ') as hashtags  
             from filtered_tweet as t 
                 join county as c on t.county_fips = c.county_fips
                 join state as s on c.statefp = s.statefp
+                join tweet_has_hashtag as thh on t.id = thh.id
                 group by (s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
         params = [hashtag, d]
     elif hashtag is not None:
@@ -69,10 +72,12 @@ def tweets_states(request):
                     sum(case when t.sentiment = 0 then 1 else 0 end) as num_neg_tweet,
                     sum(case when t.sentiment = 2 then 1 else 0 end) as num_neu_tweet,
                     sum(case when t.sentiment = 4 then 1 else 0 end) as num_pos_tweet,                    
-                    avg(t.sentiment) as avg_sentiment 
+                    avg(t.sentiment) as avg_sentiment,
+                    string_agg(hashtag, ' ') as hashtags 
             from filtered_tweet as t 
                 join county as c on t.county_fips = c.county_fips
                 join state as s on c.statefp = s.statefp
+                join tweet_has_hashtag as thh on t.id = thh.id
                 group by (s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
         params = [hashtag]
     elif d is not None:
@@ -90,10 +95,12 @@ def tweets_states(request):
                     sum(case when t.sentiment = 0 then 1 else 0 end) as num_neg_tweet,
                     sum(case when t.sentiment = 2 then 1 else 0 end) as num_neu_tweet,
                     sum(case when t.sentiment = 4 then 1 else 0 end) as num_pos_tweet,                    
-                    avg(t.sentiment) as avg_sentiment 
+                    avg(t.sentiment) as avg_sentiment,
+                    string_agg(hashtag, ' ') as hashtags
             from filtered_tweet as t 
                 join county as c on t.county_fips = c.county_fips
                 join state as s on c.statefp = s.statefp
+                join tweet_has_hashtag as thh on t.id = thh.id
                 group by (s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
         params = [d]
     else:
@@ -106,16 +113,17 @@ def tweets_states(request):
                         sum(case when t.sentiment = 0 then 1 else 0 end) as num_neg_tweet,
                         sum(case when t.sentiment = 2 then 1 else 0 end) as num_neu_tweet,
                         sum(case when t.sentiment = 4 then 1 else 0 end) as num_pos_tweet,                    
-                        avg(t.sentiment) as avg_sentiment 
+                        avg(t.sentiment) as avg_sentiment,
+                        string_agg(hashtag, ' ') as hashtags
                 from tweet as t 
                     join county as c on t.county_fips = c.county_fips
-                    join state as s on c.statefp = s.statefp 
+                    join state as s on c.statefp = s.statefp
+                    join tweet_has_hashtag as thh on t.id = thh.id
                     group by (s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
         params = []
     ret = []
     with psycopg2.connect(host=settings.DATABASES['default']['HOST'], database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER'], password=settings.DATABASES['default']['PASSWORD']) as conn:
         with conn.cursor() as cur:
-            print params
             cur.execute(SQL, params)
             for i in cur.fetchall():
                 ret.append({'name':i[0],
@@ -127,7 +135,8 @@ def tweets_states(request):
                             'total_neg_tweet':int(i[6]),
                             'total_neu_tweet':int(i[7]),
                             'total_pos_tweet':int(i[8]),                                                                                    
-                            'avg_sentiment':float(i[9])})
+                            'avg_sentiment':float(i[9]),
+                            'hashtags':[{'text': i[0], 'size': i[1] / 100.0} for i in Counter(i[10].split()).most_common()[:20]]})
 
     return HttpResponse(json.dumps(ret))
 
