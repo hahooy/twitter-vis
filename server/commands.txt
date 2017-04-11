@@ -17,7 +17,11 @@ psql -f twitter.sql
 
 # Run django server
 python manage.py runserver 0.0.0.0:8000
+nohup python manage.py runserver 0.0.0.0:8000 > server.out &
 
 # URL
 http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/
 http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/tweets_states/
+
+# simple http server
+python -m SimpleHTTPServer 9000
