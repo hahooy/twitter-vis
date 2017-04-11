@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<body>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
-  <script
-  src="https://code.jquery.com/jquery-3.2.1.js"
-  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-  crossorigin="anonymous"></script>
-  <script>
-
 // The wordCloud function is adopted from this reference: http://bl.ocks.org/jwhitfieldseed/9697914
 //Simple animated example of d3-cloud - https://github.com/jasondavies/d3-cloud
 //Based on https://github.com/jasondavies/d3-cloud/blob/master/examples/simple.html
@@ -89,14 +78,3 @@ function wordCloud(selector, width, height) {
     }
 
 }
-
-//Create a new instance of the word cloud visualisation.
-var myWordCloud = wordCloud('body', 1000, 500);
-
-$.get( "http://127.0.0.1:8000/twitter_vis/tweets_states/", { date: "2017-03-16"} )
-  .done(function( data ) {
-    myWordCloud.update(JSON.parse(data)[0]['hashtags']);
-    console.log( JSON.parse(data)[0]['hashtags'] );
-  });
-
-</script>
