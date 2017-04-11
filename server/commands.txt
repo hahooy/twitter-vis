@@ -11,9 +11,9 @@ sudo apt-get install postgis
 sudo -u postgres psql
 
 # DB
-pg_dump --no-owner -C team17_ratingbias > pj1.sql
-scp pj1.sql bus:~
-psql -f pj1.sql
+pg_dump --no-owner -C team17_ratingbias > twitter.sql
+scp twitter.sql bus:~
+psql -f twitter.sql
 
 # Run django server
 python manage.py runserver 0.0.0.0:8000
