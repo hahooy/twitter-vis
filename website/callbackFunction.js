@@ -1,0 +1,4 @@
+$(function(){
+gisMap.updateChoropleth(data);
+
+});
