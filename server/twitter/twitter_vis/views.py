@@ -33,6 +33,23 @@ def tweets_summary(request):
                 ret['tweet_timeline'].append({'date':i[0].strftime('%Y-%m-%d'), 'count':i[1]})
     return HttpResponse(json.dumps(ret))    
 
+
+@csrf_exempt
+def top_hashtags(request):
+    ret = []
+    limit = request.GET.get('limit')
+    if limit is None:
+        return HttpResponse("Error: the limit parameter is required.")
+
+    with psycopg2.connect(host=settings.DATABASES['default']['HOST'], database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER'], password=settings.DATABASES['default']['PASSWORD']) as conn:
+        with conn.cursor() as cur:
+            SQL = "select hashtag from tweet_has_hashtag group by hashtag order by count(*) desc limit %s;"
+            cur.execute(SQL, [limit])
+            for i in cur.fetchall():
+                ret.append(i[0])
+    return HttpResponse(json.dumps(ret))
+
+
 @csrf_exempt
 def tweets_states(request):
     hashtag = request.GET.get('hashtag')
