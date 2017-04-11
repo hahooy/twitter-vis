@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="slider.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+ <script src="http://d3js.org/d3.v3.min.js"></script>
+
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  
+  <script src="http://datamaps.github.io/scripts/datamaps.usa.min.js"></script>
+  <script src="generateMap.js"></script>
+
+
+  <script src="sliderJquery.js"> </script>
+
+  <script src ="callbackFunction.js"></script>
+
+
+</head>
+
+<body>
+
+  <div id="mapvis" style="position: absolute; width: 900px; height: 700px; "></div>
+  
+ 
+
+
+  <p style=" width: 300px; top: 20px; left:20px; bottom:0px;">
+    <label for="minval">March: </label>
+    <input type="text" id="minval" readonly="readonly" style="border:0; color:#b9cd6d; font-weight:bold;">
+  </p>
+  <div id="slider-5" style="position: absolute; width: 200px; top: 50px; left:20px; bottom:0px; background: #d6adff;"></div>
+
+</body>
+
+</html>
