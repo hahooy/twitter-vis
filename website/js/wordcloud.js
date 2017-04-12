@@ -60,10 +60,13 @@ function wordCloud(selector, width, height) {
         //The outside world will need to call this function, so make it part
         // of the wordCloud return value.
         update: function(words) {
+            // make a copy of the words.
+            words = JSON.parse(JSON.stringify(words));
             // Normalize the word sizes to be from 0 to 20% of min(width, height).
             var maxSize = Math.max.apply(null, words.map(function(word) {return word.size;}));
             words = words.map(function(word) {
-                word.size = word.size / maxSize * 0.2 * Math.min(width, height);
+                word.size = 1 / Math.log(maxSize / word.size) * 0.2 * Math.min(width, height);
+                console.log(word.size);
                 return word;
             });
             d3.layout.cloud().size([width, height])

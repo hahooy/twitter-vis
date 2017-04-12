@@ -32,6 +32,13 @@ function generateMap() {
     return gisMap;
 }
 
+// Create bubbles.
+function updateBubbles(map, data, date) {
+  data = data.filter(function(d) { return d.publish_date == date; });
+  insertRadius(data);
+  map.bubbles(data);
+}
+
 // Calculate the radius of the bubbles based on the number of tweets.
 function insertRadius(data) {
     var maxTweets = Math.max.apply(null, data.map(function (d) {

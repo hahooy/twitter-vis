@@ -12,10 +12,11 @@ $(function() {
     // Create a gis map.
     var gisMap = generateMap();
 
+    var currentDate = "2017-03-13";
     // Query parameters.
-    var params = {
-        date: "2017-03-13"
-    };
+    var params = {};
+    // Query results.
+    var dataGlobal = [];
 
     
 
@@ -23,9 +24,9 @@ $(function() {
     function queryTweets(params) {
         // Query data and render.
         $.get( baseURL + tweetsByStatesURL, params ).done(function( data ) {
-            data = JSON.parse(data);
-            console.log(data);
-            renderData(data);
+            dataGlobal = JSON.parse(data);
+            console.log(dataGlobal);
+            renderData(dataGlobal);
         });
     }
 
@@ -33,8 +34,7 @@ $(function() {
     function renderData(data) {
         smallWordCloud.update(data[0].hashtags);
         largeWordCloud.update(data[0].hashtags);
-        insertRadius(data);
-        gisMap.bubbles(data);
+        updateBubbles(gisMap, data, currentDate);
     }
 
     // Initialize the visualizations.
@@ -72,8 +72,8 @@ $(function() {
             },
             slide: function (event, ui) {
                 $("#minval").val(ui.value);
-              params.date = "2017-03-" + ui.value;
-              queryTweets(params);
+                currentDate = "2017-03-" + ui.value;
+                renderData(dataGlobal);
             }
           });
         $("#minval").val($("#slider").slider("value"));

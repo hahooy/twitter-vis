@@ -65,7 +65,8 @@ def tweets_states(request):
                     s.abbreviation as abbreviation,
                     s.statefp as statefp, 
                     s.latitude as latitude, 
-                    s.longitude as longitude, 
+                    s.longitude as longitude,
+                    t.publish_date as publish_date,
                     count(*) as num_tweet,
                     sum(case when t.sentiment = 0 then 1 else 0 end) as num_neg_tweet,
                     sum(case when t.sentiment = 2 then 1 else 0 end) as num_neu_tweet,
@@ -76,7 +77,7 @@ def tweets_states(request):
                 join county as c on t.county_fips = c.county_fips
                 join state as s on c.statefp = s.statefp
                 join tweet_has_hashtag as thh on t.id = thh.id
-                group by (s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
+                group by (t.publish_date, s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
         params = [hashtag, d]
     elif hashtag is not None:
         SQL = """
@@ -89,6 +90,7 @@ def tweets_states(request):
                     s.statefp as statefp, 
                     s.latitude as latitude, 
                     s.longitude as longitude, 
+                    t.publish_date as publish_date,
                     count(*) as num_tweet,
                     sum(case when t.sentiment = 0 then 1 else 0 end) as num_neg_tweet,
                     sum(case when t.sentiment = 2 then 1 else 0 end) as num_neu_tweet,
@@ -99,12 +101,12 @@ def tweets_states(request):
                 join county as c on t.county_fips = c.county_fips
                 join state as s on c.statefp = s.statefp
                 join tweet_has_hashtag as thh on t.id = thh.id
-                group by (s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
+                group by (t.publish_date, s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
         params = [hashtag]
     elif d is not None:
         SQL = """
             with filtered_tweet as (
-                select t.* from tweet as t join tweet_has_hashtag as thh on t.id = thh.id
+                select t.*, thh.hashtag from tweet as t join tweet_has_hashtag as thh on t.id = thh.id
                 where t.publish_date = %s
             )
             select s.name as name, 
@@ -112,6 +114,7 @@ def tweets_states(request):
                     s.statefp as statefp, 
                     s.latitude as latitude, 
                     s.longitude as longitude, 
+                    t.publish_date as publish_date,
                     count(*) as num_tweet,
                     sum(case when t.sentiment = 0 then 1 else 0 end) as num_neg_tweet,
                     sum(case when t.sentiment = 2 then 1 else 0 end) as num_neu_tweet,
@@ -121,15 +124,15 @@ def tweets_states(request):
             from filtered_tweet as t 
                 join county as c on t.county_fips = c.county_fips
                 join state as s on c.statefp = s.statefp
-                join tweet_has_hashtag as thh on t.id = thh.id
-                group by (s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
+                group by (t.publish_date, s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
         params = [d]
     else:
         SQL = """select s.name as name, 
                         s.abbreviation as abbreviation,
                         s.statefp as statefp, 
                         s.latitude as latitude, 
-                        s.longitude as longitude, 
+                        s.longitude as longitude,
+                        t.publish_date as publish_date,
                         count(*) as num_tweet,
                         sum(case when t.sentiment = 0 then 1 else 0 end) as num_neg_tweet,
                         sum(case when t.sentiment = 2 then 1 else 0 end) as num_neu_tweet,
@@ -140,7 +143,7 @@ def tweets_states(request):
                     join county as c on t.county_fips = c.county_fips
                     join state as s on c.statefp = s.statefp
                     join tweet_has_hashtag as thh on t.id = thh.id
-                    group by (s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
+                    group by (t.publish_date, s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
         params = []
     ret = []
     with psycopg2.connect(host=settings.DATABASES['default']['HOST'], database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER'], password=settings.DATABASES['default']['PASSWORD']) as conn:
@@ -153,12 +156,13 @@ def tweets_states(request):
                             'statefp':i[2],
                             'latitude':float(i[3]),
                             'longitude':float(i[4]),
-                            'total_num_tweet':int(i[5]),
-                            'total_neg_tweet':int(i[6]),
-                            'total_neu_tweet':int(i[7]),
-                            'total_pos_tweet':int(i[8]),                                                                                    
-                            'avg_sentiment':float(i[9]),
-                            'hashtags':[{'text': i[0], 'size': i[1]} for i in Counter(i[10].split()).most_common()[:20]]})
+                            'publish_date':i[5].strftime('%Y-%m-%d'),
+                            'total_num_tweet':int(i[6]),
+                            'total_neg_tweet':int(i[7]),
+                            'total_neu_tweet':int(i[8]),
+                            'total_pos_tweet':int(i[9]),                                                                                    
+                            'avg_sentiment':float(i[10]),
+                            'hashtags':[{'text': i[0], 'size': i[1]} for i in Counter(i[11].split()).most_common()[:35]]})
 
     return HttpResponse(json.dumps(ret))
 
