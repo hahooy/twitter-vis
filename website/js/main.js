@@ -1,7 +1,7 @@
 $(function() {
     // Constants.
     var baseURL = "http://127.0.0.1:8000/twitter_vis/";
-    // var baseURL = "http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/";
+    //var baseURL = "http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/";
     var tweetsByStatesURL = "tweets_states/"
     var allHashtagURL = "top_hashtags/"
 
@@ -13,6 +13,9 @@ $(function() {
     var params = {
         date: "2017-03-16"
     };
+
+    // Create a gis map.
+    var gisMap = generateMap();
 
     // Query wrapper.
     function queryTweets(params) {
@@ -28,14 +31,12 @@ $(function() {
     function renderData(data) {
         smallWordCloud.update(data[0]['hashtags']);
         largeWordCloud.update(data[0]['hashtags']);
-        generateMap(data);
+        insertRadius(data);
+        gisMap.bubbles(data);
     }
 
     // Initialize the visualizations.
     function initVis() {
-
-        queryTweets(params);
-
         // Autocomplete for hashtags.
         $.get( baseURL + allHashtagURL, { limit: 100} ).done(function( data ) {
             console.log( JSON.parse(data) );
@@ -73,6 +74,8 @@ $(function() {
             }
           });
         $("#minval").val($("#slider-5").slider("value"));
+
+        queryTweets(params);
     }
 
     initVis();

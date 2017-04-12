@@ -12,16 +12,10 @@ $("#minval").change(function() {
 
 //generateMap();
 
-function generateMap(data) {
-    
-    var margin = { top: 20, bottom: 20, left: 20, right: 20 },
-        width = 500 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
-    var svg = d3.select("body")
-    var canvas = d3.select(".canvas")
-        .append("svg");
+function generateMap() {
     var gisMap = new Datamap({
         scope: 'usa',
+        width: 1000,
         element: document.getElementById('mapvis'),
         geographyConfig: {
             highlightBorderColor: '#ffc1b1'
@@ -34,15 +28,15 @@ function generateMap(data) {
             }
 
     });
+    console.log("map created");
+    return gisMap;
+}
+
+// Calculate the radius of the bubbles based on the number of tweets.
+function insertRadius(data) {
     var maxTweets = Math.max.apply(null, data.map(function (d) {
         return d.total_num_tweet;
     }));
-    insertRadius(data, maxTweets);
-    gisMap.bubbles(data);
-    console.log("map created");
-}
-
-function insertRadius(data, maxTweets) {
 
     for (var i = 0; i < data.length; i++) {
         var tweets = data[i].total_num_tweet;
