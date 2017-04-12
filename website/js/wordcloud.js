@@ -65,8 +65,7 @@ function wordCloud(selector, width, height) {
             // Normalize the word sizes to be from 0 to 20% of min(width, height).
             var maxSize = Math.max.apply(null, words.map(function(word) {return word.size;}));
             words = words.map(function(word) {
-                word.size = 1 / Math.log(maxSize / word.size) * 0.2 * Math.min(width, height);
-                console.log(word.size);
+                word.size = 1 / Math.log(Math.exp(1) * maxSize / word.size) * 0.2 * Math.min(width, height);
                 return word;
             });
             d3.layout.cloud().size([width, height])

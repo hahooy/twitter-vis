@@ -145,13 +145,14 @@ def tweets_states(request):
                     join tweet_has_hashtag as thh on t.id = thh.id
                     group by (t.publish_date, s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
         params = []
-    ret = []
+    
+    ret = {}
     with psycopg2.connect(host=settings.DATABASES['default']['HOST'], database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER'], password=settings.DATABASES['default']['PASSWORD']) as conn:
         with conn.cursor() as cur:
             print params
             cur.execute(SQL, params)
             for i in cur.fetchall():
-                ret.append({'name':i[0],
+                ret_entry = {'name':i[0],
                             'abbreviation':i[1],
                             'statefp':i[2],
                             'latitude':float(i[3]),
@@ -162,7 +163,17 @@ def tweets_states(request):
                             'total_neu_tweet':int(i[8]),
                             'total_pos_tweet':int(i[9]),                                                                                    
                             'avg_sentiment':float(i[10]),
-                            'hashtags':[{'text': i[0], 'size': i[1]} for i in Counter(i[11].split()).most_common()[:35]]})
+                            'hashtags':[{'text': c[0], 'size': c[1]} for c in Counter(i[11].split()).most_common()[:35]]}
+                if ret_entry['publish_date'] not in ret:
+                    ret[ret_entry['publish_date']] = {'tweets_per_state': [ret_entry]}
+                else:
+                    ret[ret_entry['publish_date']]['tweets_per_state'].append(ret_entry)
+    for (_, ret_per_date) in ret.items():
+        ret_per_date['hashtags_all_states'] = \
+                                [{'text': c[0], 'size': c[1]} for c in \
+                                    sum([Counter({h['text']: h['size']}) \
+                                            for t in ret[ret_entry['publish_date']]['tweets_per_state'] \
+                                            for h in t['hashtags']], Counter()).most_common()[:35]]
 
     return HttpResponse(json.dumps(ret))
 

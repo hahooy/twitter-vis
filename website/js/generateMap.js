@@ -24,7 +24,7 @@ function generateMap() {
         fills: {
              
               defaultFill: '#ABDDA4',
-               'bubbleColor': ' #b3e0ff'
+              bubbleColor: '#b3e0ff'
             }
 
     });
@@ -33,10 +33,30 @@ function generateMap() {
 }
 
 // Create bubbles.
-function updateBubbles(map, data, date) {
-  data = data.filter(function(d) { return d.publish_date == date; });
+function updateBubbles(map, data, wordcloud) {
   insertRadius(data);
   map.bubbles(data);
+  console.log(d3.selectAll("circle").data());
+  d3.selectAll("circle")
+    .style("fill", "#b3e0ff")
+    .style("opacity", 0.8)
+    .on("mouseover", function(d) {
+      console.log(d);
+      d3.select(this)
+        .transition()
+        .duration(500)
+        .style("fill", "rgb(217,91,67)")  
+        .style("opacity", 0.5);
+        wordcloud.update(d.hashtags);
+    })
+    .on("mouseout", function(d) {       
+      d3.select(this)
+        .transition()
+        .duration(500)
+        .style("fill", "#b3e0ff")
+        .style("opacity", 0.8);
+        wordcloud.update(data.hashtags_all_states);
+    });
 }
 
 // Calculate the radius of the bubbles based on the number of tweets.

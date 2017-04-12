@@ -1,7 +1,7 @@
 $(function() {
     // Constants.
-    // var baseURL = "http://127.0.0.1:8000/twitter_vis/";
     var baseURL = "http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/";
+    var baseURL = "http://127.0.0.1:8000/twitter_vis/";
     var tweetsByStatesURL = "tweets_states/";
     var allHashtagURL = "top_hashtags/";
 
@@ -26,19 +26,23 @@ $(function() {
         $.get( baseURL + tweetsByStatesURL, params ).done(function( data ) {
             dataGlobal = JSON.parse(data);
             console.log(dataGlobal);
-            renderData(dataGlobal);
+            renderData(dataGlobal[currentDate]);
         });
     }
 
     // make a new request after the user select a hashtag.
     function renderData(data) {
-        smallWordCloud.update(data[0].hashtags);
-        largeWordCloud.update(data[0].hashtags);
-        updateBubbles(gisMap, data, currentDate);
+        console.log(data.hashtags_all_states);
+        smallWordCloud.update(data.hashtags_all_states);
+        largeWordCloud.update(data.hashtags_all_states);
+        updateBubbles(gisMap, data.tweets_per_state, smallWordCloud);
     }
 
     // Initialize the visualizations.
     function initVis() {
+        // Initial query.
+        queryTweets(params);
+
         // Autocomplete for hashtags.
         $.get( baseURL + allHashtagURL, { limit: 100} ).done(function( data ) {
             console.log( JSON.parse(data) );
@@ -51,7 +55,6 @@ $(function() {
                     },
                     onClickEvent: function() {
                         var value = $("#search-hashtag").getSelectedItemData();
-                        console.log(value);
                         params.hashtag = value;
                         queryTweets(params);
                     }
@@ -73,14 +76,12 @@ $(function() {
             slide: function (event, ui) {
                 $("#minval").val(ui.value);
                 currentDate = "2017-03-" + ui.value;
-                renderData(dataGlobal);
+                renderData(dataGlobal[currentDate]);
             }
           });
         $("#minval").val($("#slider").slider("value"));
 
-        queryTweets(params);
     }
-
     initVis();
 });
 
