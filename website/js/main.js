@@ -1,7 +1,7 @@
 $(function() {
     // Constants.
     var baseURL = "http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/";
-    var baseURL = "http://127.0.0.1:8000/twitter_vis/";
+    // var baseURL = "http://127.0.0.1:8000/twitter_vis/";
     var tweetsByStatesURL = "tweets_states/";
     var hashtagURL = "top_hashtags/";
 
