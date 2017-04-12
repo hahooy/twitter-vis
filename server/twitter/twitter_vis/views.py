@@ -37,14 +37,14 @@ def tweets_summary(request):
 @csrf_exempt
 def top_hashtags(request):
     ret = []
-    limit = request.GET.get('limit')
-    if limit is None:
+    phrase = request.GET.get('phrase')
+    if phrase is None:
         return HttpResponse("Error: the limit parameter is required.")
 
     with psycopg2.connect(host=settings.DATABASES['default']['HOST'], database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER'], password=settings.DATABASES['default']['PASSWORD']) as conn:
         with conn.cursor() as cur:
-            SQL = "select hashtag from tweet_has_hashtag group by hashtag order by count(*) desc limit %s;"
-            cur.execute(SQL, [limit])
+            SQL = "select hashtag from hashtag where hashtag ilike %s order by char_length(hashtag);"
+            cur.execute(SQL, ['%'+phrase+'%'])
             for i in cur.fetchall():
                 ret.append(i[0])
     return HttpResponse(json.dumps(ret))

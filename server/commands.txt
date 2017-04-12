@@ -25,3 +25,8 @@ http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/tweets_states/
 
 # simple http server
 python -m SimpleHTTPServer 9000
+
+# Indexes to speed up queries
+CREATE EXTENSION pg_trgm;
+create index on hashtag using gin (hashtag gin_trgm_ops);
+create index on tweet (publish_date);
