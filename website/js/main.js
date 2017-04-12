@@ -14,30 +14,6 @@ $(function() {
         date: "2017-03-16"
     };
 
-    queryTweets(params);
-
-    // Autocomplete for hashtags.
-    $.get( baseURL + allHashtagURL, { limit: 100} ).done(function( data ) {
-        console.log( JSON.parse(data) );
-        var options = {
-            data: JSON.parse(data),
-            list: {
-                maxNumberOfElements: 10,
-                match: {
-                    enabled: true
-                },
-                onClickEvent: function() {
-                    var value = $("#search-hashtag").getSelectedItemData();
-                    console.log(value);
-                    params.hashtag = value;
-                    queryTweets(params);
-                }
-            },
-            placeholder: "choose a hashtag"
-        };
-        $("#search-hashtag").easyAutocomplete(options);
-    });
-
     // Query wrapper.
     function queryTweets(params) {
         // Query data and render.
@@ -52,6 +28,53 @@ $(function() {
     function renderData(data) {
         smallWordCloud.update(data[0]['hashtags']);
         largeWordCloud.update(data[0]['hashtags']);
+        generateMap(data);
     }
+
+    // Initialize the visualizations.
+    function initVis() {
+
+        queryTweets(params);
+
+        // Autocomplete for hashtags.
+        $.get( baseURL + allHashtagURL, { limit: 100} ).done(function( data ) {
+            console.log( JSON.parse(data) );
+            var options = {
+                data: JSON.parse(data),
+                list: {
+                    maxNumberOfElements: 10,
+                    match: {
+                        enabled: true
+                    },
+                    onClickEvent: function() {
+                        var value = $("#search-hashtag").getSelectedItemData();
+                        console.log(value);
+                        params.hashtag = value;
+                        queryTweets(params);
+                    }
+                },
+                placeholder: "choose a hashtag"
+            };
+            $("#search-hashtag").easyAutocomplete(options);
+        });
+
+        // Slider for choosing a date.
+        $("#slider-5").slider({
+            orientation: "horizontal",
+            value: 13,
+            max: 19,
+            min: 13,
+            classes: {
+              "ui-slider": "highlight"
+            },
+            slide: function (event, ui) {
+              $("#minval").val(ui.value);
+              //generateMap(ui.value);
+            }
+          });
+        $("#minval").val($("#slider-5").slider("value"));
+    }
+
+    initVis();
 });
 

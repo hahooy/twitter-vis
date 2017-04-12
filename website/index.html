@@ -197,6 +197,12 @@
         <div class="col-md-8">
           <div class="row">
             <h3>TODO: MAP</h3>
+              <div id="mapvis" style="position: absolute; width: 900px; height: 700px; "></div>
+              <p style=" width: 300px; top: 20px; left:20px; bottom:0px;">
+                <label for="minval">March: </label>
+                <input type="text" id="minval" readonly="readonly" style="border:0; color:#b9cd6d; font-weight:bold;">
+              </p>
+              <div id="slider-5" style="position: absolute; width: 200px; top: 50px; left:20px; bottom:0px; background: #d6adff;"></div>
           </div>
           <div class="row">
             <h3>TODO: Optionally ThemeRiver</h3>
@@ -279,18 +285,27 @@
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<!-- jQuery UI -->
+<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <!-- Bootstrap js -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App js -->
 <script src="dist/js/app.js"></script>
 <!-- D3.js -->
 <script src="http://d3js.org/d3.v3.min.js"></script>
+<!-- D3 map shape files -->
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<!-- D3 datamap -->
+<script src="http://datamaps.github.io/scripts/datamaps.usa.min.js"></script>
 <!-- word cloud library -->
 <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
 <!-- easyautocomplete js -->
 <script src="bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.js"></script>
 <!-- word cloud wrapper function -->
 <script src="js/wordcloud.js"></script>
+<!-- generate map visualization -->
+<script src="generateMap.js"></script>
 <!-- App logic js -->
 <script src="js/main.js"></script>
 </body>
