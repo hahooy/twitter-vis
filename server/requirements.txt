@@ -5,6 +5,7 @@ decorator==4.0.10
 dj-database-url==0.4.1
 Django==1.9.11
 django-cors-headers==2.0.2
+django-secure==1.0.1
 enum34==1.1.6
 gunicorn==19.6.0
 ipython==5.1.0
