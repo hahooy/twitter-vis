@@ -61,6 +61,7 @@ function wordCloud(selector, width, height) {
         // of the wordCloud return value.
         update: function(words) {
             // make a copy of the words.
+            console.log(words);
             words = JSON.parse(JSON.stringify(words));
             // Normalize the word sizes to be from 0 to 20% of min(width, height).
             var maxSize = Math.max.apply(null, words.map(function(word) {return word.size;}));

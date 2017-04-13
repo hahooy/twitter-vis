@@ -1,41 +1,45 @@
-
-
-$("#minval").change(function() {
-  var slider_value =  $("#minval").val();
-  console.log(slider_value);
-  alert('changed');
-  // do something..
- // generateMap(slider_value);
-  gisMap.updateChoropleth(data);
-});
-
-
-//generateMap();
-
 function generateMap() {
-    var gisMap = new Datamap({
-        scope: 'usa',
-        width: 1000,
-        element: document.getElementById('mapvis'),
-        geographyConfig: {
-            highlightBorderColor: '#ffc1b1'
-        },
-        highlightBorderWidth: 5,
-        fills: {
-             
-              defaultFill: '#ABDDA4',
-              bubbleColor: '#b3e0ff'
-            }
+  var gisMap = new Datamap({
+      scope: 'usa',
+      width: 1000,
+      element: document.getElementById('mapvis'),
+      geographyConfig: {
+          highlightBorderColor: '#ffc1b1'
+      },
+      highlightBorderWidth: 5,
+      fills: {
+            defaultFill: '#ABDDA4',
+            bubbleColor: '#b3e0ff'
+          }
 
-    });
-    console.log("map created");
-    return gisMap;
+  });
+  console.log("map created");
+  return gisMap;
+}
+
+// Update the map.
+function updateMap(map, data) {
+  // Color scale.
+  var colorScale = d3.scale.linear()
+                            .domain([2,2.25])
+                            .range(["#ffdd4a", "#fb8702"]);
+  var allStates = Datamap.prototype.usaTopo.objects.usa.geometries.map(function(state) {
+    return state.id
+  });
+  var colors = {};
+  for (var i = 0; i < allStates.length; i++) {
+    colors[allStates[i]] = '#ABDDA4';
+  }
+  for (var i = 0; i < data.tweets_per_state.length; i++) {
+    colors[data.tweets_per_state[i].abbreviation] = colorScale(data.tweets_per_state[i].avg_sentiment);
+  }
+  map.updateChoropleth(colors, {reset: true});
 }
 
 // Create bubbles.
 function updateBubbles(map, data, wordcloud) {
-  insertRadius(data);
-  map.bubbles(data);
+  insertRadius(data.tweets_per_state);
+  map.bubbles(data.tweets_per_state);
   console.log(d3.selectAll("circle").data());
   d3.selectAll("circle")
     .style("fill", "#b3e0ff")
@@ -47,7 +51,7 @@ function updateBubbles(map, data, wordcloud) {
         .duration(500)
         .style("fill", "rgb(217,91,67)")  
         .style("opacity", 0.5);
-        wordcloud.update(d.hashtags);
+      wordcloud.update(d.hashtags);
     })
     .on("mouseout", function(d) {       
       d3.select(this)
@@ -55,7 +59,7 @@ function updateBubbles(map, data, wordcloud) {
         .duration(500)
         .style("fill", "#b3e0ff")
         .style("opacity", 0.8);
-        wordcloud.update(data.hashtags_all_states);
+      wordcloud.update(data.hashtags_all_states);
     });
 }
 

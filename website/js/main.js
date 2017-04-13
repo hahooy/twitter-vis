@@ -42,7 +42,8 @@ $(function() {
         console.log(dataAtDate.hashtags_all_states);
         smallWordCloud.update(dataAtDate.hashtags_all_states);
         largeWordCloud.update(dataAtDate.hashtags_all_states);
-        updateBubbles(gisMap, dataAtDate.tweets_per_state, smallWordCloud);
+        updateBubbles(gisMap, dataAtDate, smallWordCloud);
+        updateMap(gisMap, dataAtDate);
     }
 
     function getAvailableDates(data) {
