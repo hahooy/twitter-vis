@@ -1,7 +1,7 @@
 function generateMap() {
   var gisMap = new Datamap({
       scope: 'usa',
-      width: 1000,
+      width: 900,
       element: document.getElementById('mapvis'),
       geographyConfig: {
           highlightBorderColor: MAP_BORDER_COLOR

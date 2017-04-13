@@ -1,7 +1,7 @@
 $(function() {
     // Constants.
     var baseURL = "http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/";
-    // var baseURL = "http://127.0.0.1:8000/twitter_vis/";
+    //var baseURL = "http://127.0.0.1:8000/twitter_vis/";
     var tweetsByStatesURL = "tweets_states/";
     var hashtagURL = "top_hashtags/";
 
@@ -59,23 +59,24 @@ $(function() {
     }
 
     // Initialize the slider.
-    function renderSlider(date, value) {
+    function renderSlider(date, v) {
         // Slider for choosing a date.
+        console.log(date);
+        if (typeof $("#slider").slider("instance") != 'undefined') {
+            $("#slider").slider("destroy");
+        }
         $("#slider").slider({
             orientation: "horizontal",
-            value: value,
+            value: v,
             min: 0,
             max: date.length - 1,
-            classes: {
-              "ui-slider": "highlight"
-            },
-            slide: function (event, ui) {
-                $("#selectedDate").val(date[$("#slider").slider("value")]);
+            change: function (event, ui) {
+                $("#selectedDate").text(date[$("#slider").slider("value")]);
                 currentDateIdx = ui.value;
                 renderData(dataGlobal[date[currentDateIdx]]);
             }
         });
-        $("#selectedDate").val(date[$("#slider").slider("value")]);
+        $("#selectedDate").text(date[$("#slider").slider("value")]);
     }
 
     // Initialize visualizations that don't rely on the server.
@@ -98,7 +99,8 @@ $(function() {
                 }
             },
             placeholder: "choose a hashtag",
-            requestDelay: 500
+            requestDelay: 500,
+            theme: "square"
         };
         $("#search-hashtag").easyAutocomplete(options);
     }

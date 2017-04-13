@@ -2,6 +2,7 @@ from collections import Counter
 from datetime import date
 import json
 import psycopg2
+import time
 
 from nltk.corpus import stopwords
 
@@ -127,29 +128,14 @@ def tweets_states(request):
                 group by (t.publish_date, s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
         params = [d]
     else:
-        SQL = """select s.name as name, 
-                        s.abbreviation as abbreviation,
-                        s.statefp as statefp, 
-                        s.latitude as latitude, 
-                        s.longitude as longitude,
-                        t.publish_date as publish_date,
-                        count(*) as num_tweet,
-                        sum(case when t.sentiment = 0 then 1 else 0 end) as num_neg_tweet,
-                        sum(case when t.sentiment = 2 then 1 else 0 end) as num_neu_tweet,
-                        sum(case when t.sentiment = 4 then 1 else 0 end) as num_pos_tweet,                    
-                        avg(t.sentiment) as avg_sentiment,
-                        string_agg(hashtag, ' ') as hashtags
-                from tweet as t 
-                    join county as c on t.county_fips = c.county_fips
-                    join state as s on c.statefp = s.statefp
-                    join tweet_has_hashtag as thh on t.id = thh.id
-                    group by (t.publish_date, s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);"""
+        SQL = """select * from tweets_agged;"""
         params = []
     
     ret = {}
     with psycopg2.connect(host=settings.DATABASES['default']['HOST'], database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER'], password=settings.DATABASES['default']['PASSWORD']) as conn:
         with conn.cursor() as cur:
             print params
+            start = time.time()
             cur.execute(SQL, params)
             for i in cur.fetchall():
                 ret_entry = {'name':i[0],
@@ -163,17 +149,19 @@ def tweets_states(request):
                             'total_neu_tweet':int(i[8]),
                             'total_pos_tweet':int(i[9]),                                                                                    
                             'avg_sentiment':float(i[10]),
-                            'hashtags':[{'text': c[0], 'size': c[1]} for c in Counter(i[11].split()).most_common()[:35]]}
+                            'hashtags':[{'text': c[0], 'size': c[1]} for c in Counter(i[11].split()).most_common()[:20]]}
                 if ret_entry['publish_date'] not in ret:
                     ret[ret_entry['publish_date']] = {'tweets_per_state': [ret_entry]}
                 else:
                     ret[ret_entry['publish_date']]['tweets_per_state'].append(ret_entry)
+            end = time.time()
+
     for (_, ret_per_date) in ret.items():
         ret_per_date['hashtags_all_states'] = \
                                 [{'text': c[0], 'size': c[1]} for c in \
                                     sum([Counter({h['text']: h['size']}) \
                                             for t in ret[ret_entry['publish_date']]['tweets_per_state'] \
-                                            for h in t['hashtags']], Counter()).most_common()[:35]]
-
+                                            for h in t['hashtags']], Counter()).most_common()[:40]]
+    print end - start
     return HttpResponse(json.dumps(ret))
 

@@ -30,3 +30,22 @@ python -m SimpleHTTPServer 9000
 CREATE EXTENSION pg_trgm;
 create index on hashtag using gin (hashtag gin_trgm_ops);
 create index on tweet (publish_date);
+
+# Create temp table for long queries
+create table tweets_agged as select s.name as name, 
+                         s.abbreviation as abbreviation,
+                         s.statefp as statefp, 
+                         s.latitude as latitude, 
+                         s.longitude as longitude,
+                         t.publish_date as publish_date,
+                         count(*) as num_tweet,
+                         sum(case when t.sentiment = 0 then 1 else 0 end) as num_neg_tweet,
+                         sum(case when t.sentiment = 2 then 1 else 0 end) as num_neu_tweet,
+                         sum(case when t.sentiment = 4 then 1 else 0 end) as num_pos_tweet,                    
+                         avg(t.sentiment) as avg_sentiment,
+                         string_agg(hashtag, ' ') as hashtags
+                 from tweet as t 
+                     join county as c on t.county_fips = c.county_fips
+                     join state as s on c.statefp = s.statefp
+                     join tweet_has_hashtag as thh on t.id = thh.id
+                     group by (t.publish_date, s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);
