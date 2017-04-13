@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'corsheaders',
+    'djangosecure',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -52,6 +53,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'djangosecure.middleware.SecurityMiddleware',
 ]
 
 ROOT_URLCONF = 'twitter.urls'
@@ -130,6 +132,9 @@ STATIC_URL = '/static/'
 
 # Allow CORS
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Redirect http to https
+SECURE_SSL_REDIRECT = True
 
 # Import local settings.
 try:
