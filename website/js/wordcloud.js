@@ -20,7 +20,7 @@ function wordCloud(selector, width, height) {
     //Draw the word cloud
     function draw(words) {
         var cloud = svg.selectAll("g text")
-                        .data(words, function(d) { return d.text; })
+                        .data(words, function(d) { return d.text; });
 
         //Entering words
         cloud.enter()
@@ -78,6 +78,6 @@ function wordCloud(selector, width, height) {
                 .on("end", draw)
                 .start();
         }
-    }
+    };
 
 }

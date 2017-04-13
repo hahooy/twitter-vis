@@ -5,34 +5,32 @@ $(function() {
     var tweetsByStatesURL = "tweets_states/";
     var hashtagURL = "top_hashtags/";
 
+    // UI variables.
+    var smallWCWidth = 300
+    var smallWCHeight = 500;
+    var largeWCWidth = 1000;
+    var largeWCHeight = 300;
+
     //Create a new instance of the word cloud visualisation.
-    var smallWordCloud = wordCloud('#small-wordcloud-vis', 300, 500);
-    var largeWordCloud = wordCloud('#wordcloud-vis', 1000, 300);
+    var smallWordCloud = wordCloud('#small-wordcloud-vis', smallWCWidth, smallWCHeight);
+    var largeWordCloud = wordCloud('#wordcloud-vis', largeWCWidth, largeWCHeight);
 
     // Create a gis map.
-    var gisMap = generateMap();
-    // Index to the current selected date.
-    var currentDateIdx = 0;
-    // All available dates.
-    var availableDatesGlobal = [];
+    var gisMap = usmap();
+    // Create a slider for the map.
+    var slider = mapslider();
     // Query parameters.
     var params = {};
-    // Query results.
-    var dataGlobal = [];
 
-    
 
     // Query wrapper.
     function queryTweets(params) {
         // Query data and render.
         $.get( baseURL + tweetsByStatesURL, params ).done(function( data ) {
-            dataGlobal = JSON.parse(data);
-            console.log(dataGlobal);
-            availableDatesGlobal = getAvailableDates(dataGlobal);
-            currentDateIdx = 0;
-            renderSlider(availableDatesGlobal, currentDateIdx);
-            console.log(currentDateIdx);
-            renderData(dataGlobal[availableDatesGlobal[currentDateIdx]]);
+            data = JSON.parse(data);
+            console.log(data);
+            slider.update(data, 0, renderData);
+            renderData(data[slider.getCurrentDate()]);
         });
     }
 
@@ -42,42 +40,10 @@ $(function() {
         console.log(dataAtDate.hashtags_all_states);
         smallWordCloud.update(dataAtDate.hashtags_all_states);
         largeWordCloud.update(dataAtDate.hashtags_all_states);
-        updateBubbles(gisMap, dataAtDate, smallWordCloud);
-        updateMap(gisMap, dataAtDate);
+        gisMap.updateBubbles(dataAtDate, smallWordCloud);
+        gisMap.updateMap(dataAtDate);
     }
 
-    function getAvailableDates(data) {
-        var dates = [];
-        for (date in data) {
-            dates.push(date);
-        }
-        console.log(dates);
-        dates.sort(function(date1, date2) {
-            return new Date(date1) - new Date(date2);
-        });
-        return dates;
-    }
-
-    // Initialize the slider.
-    function renderSlider(date, v) {
-        // Slider for choosing a date.
-        console.log(date);
-        if (typeof $("#slider").slider("instance") != 'undefined') {
-            $("#slider").slider("destroy");
-        }
-        $("#slider").slider({
-            orientation: "horizontal",
-            value: v,
-            min: 0,
-            max: date.length - 1,
-            change: function (event, ui) {
-                $("#selectedDate").text(date[$("#slider").slider("value")]);
-                currentDateIdx = ui.value;
-                renderData(dataGlobal[date[currentDateIdx]]);
-            }
-        });
-        $("#selectedDate").text(date[$("#slider").slider("value")]);
-    }
 
     // Initialize visualizations that don't rely on the server.
     function initVisStatic() {
@@ -105,9 +71,8 @@ $(function() {
         $("#search-hashtag").easyAutocomplete(options);
     }
 
-    console.log('before init static');
+
     initVisStatic();
-    console.log('before query');
     queryTweets(params); // Initial query.
 });
 
