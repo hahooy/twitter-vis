@@ -4,12 +4,12 @@ function generateMap() {
       width: 1000,
       element: document.getElementById('mapvis'),
       geographyConfig: {
-          highlightBorderColor: '#ffc1b1'
+          highlightBorderColor: MAP_BORDER_COLOR
       },
       highlightBorderWidth: 5,
       fills: {
-            defaultFill: '#ABDDA4',
-            bubbleColor: '#b3e0ff'
+            defaultFill: MAP_DEFAULT_FILL,
+            bubbleColor: BUBBLE_DEFAULT_FILL
           }
 
   });
@@ -21,14 +21,15 @@ function generateMap() {
 function updateMap(map, data) {
   // Color scale.
   var colorScale = d3.scale.linear()
-                            .domain([2,2.25])
-                            .range(["#ffdd4a", "#fb8702"]);
+                            .domain(SENTIMENT_DOMAIN)
+                            .range(SENTIMENT_COLOR_RANGE);
   var allStates = Datamap.prototype.usaTopo.objects.usa.geometries.map(function(state) {
     return state.id
   });
+  console.log(data);
   var colors = {};
   for (var i = 0; i < allStates.length; i++) {
-    colors[allStates[i]] = '#ABDDA4';
+    colors[allStates[i]] = MAP_DEFAULT_FILL;
   }
   for (var i = 0; i < data.tweets_per_state.length; i++) {
     colors[data.tweets_per_state[i].abbreviation] = colorScale(data.tweets_per_state[i].avg_sentiment);
@@ -49,7 +50,7 @@ function updateBubbles(map, data, wordcloud) {
       d3.select(this)
         .transition()
         .duration(500)
-        .style("fill", "rgb(217,91,67)")  
+        .style("fill", BUBBLE_HOVER_FILL)  
         .style("opacity", 0.5);
       wordcloud.update(d.hashtags);
     })
@@ -57,7 +58,7 @@ function updateBubbles(map, data, wordcloud) {
       d3.select(this)
         .transition()
         .duration(500)
-        .style("fill", "#b3e0ff")
+        .style("fill", BUBBLE_DEFAULT_FILL)
         .style("opacity", 0.8);
       wordcloud.update(data.hashtags_all_states);
     });
