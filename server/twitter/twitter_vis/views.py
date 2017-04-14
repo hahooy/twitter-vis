@@ -163,5 +163,6 @@ def tweets_states(request):
                                             for t in ret[ret_entry['publish_date']]['tweets_per_state'] \
                                             for h in t['hashtags']], Counter()).most_common()[:40]]
     print end - start
-    return HttpResponse(json.dumps(ret))
+    res = HttpResponse(json.dumps(ret))
+    return res
 
