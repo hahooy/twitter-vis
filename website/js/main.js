@@ -1,6 +1,6 @@
 $(function() {
     // Constants.
-    var baseURL = "http://twitter-vis-site.tk:8000/twitter_vis/";
+    var baseURL = "https://twitter-vis-site.tk:8000/twitter_vis/";
     // var baseURL = "http://127.0.0.1:8000/twitter_vis/";
     var tweetsByStatesURL = "tweets_states/";
     var hashtagURL = "top_hashtags/";
