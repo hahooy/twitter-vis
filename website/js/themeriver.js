@@ -5,20 +5,12 @@ function themeriver(selector) {
     var width = 1000, height = 500;
     var graphWidth = width - margin.left - margin.right;
     var graphHeight = height - margin.top - margin.bottom;
-    var sideGraphWidth = width / 2;
-    var sideGraphHeight = height / 3;
-    var sideGraphGraphWidth = sideGraphWidth - margin.left - margin.right;
-    var sideGraphGraphHeight = sideGraphHeight - margin.top - margin.bottom;
     var colorScheme = ['#014636', '#016c59', '#02818a', '#3690c0', '#67a9cf', '#a6bddb', '#d0d1e6', '#ece2f0', '#fff7fb'];
 
     var canvas = d3v4.select(selector)
                     .append('svg')
                     .attr('width', width)
                     .attr('height', height);
-    var sideGraph = d3v4.select('#side-graph')
-                    .append('svg')
-                    .attr('width', sideGraphWidth)
-                    .attr('height', sideGraphHeight);
 
     function getAvailableDates(data) {
         var dates = [];
@@ -72,6 +64,7 @@ function themeriver(selector) {
     }
 
     function update(data, currentDateIdx, renderData) {
+        canvas.selectAll('g').remove();
         data = preprocess(data);
         console.log(data);
         if (data.length == 0) {
@@ -112,7 +105,7 @@ function themeriver(selector) {
         var colorScale = d3v4.scaleOrdinal().range(colorScheme);
         var xAxis = d3v4.axisBottom(xScale);
         var yAxis = d3v4.axisLeft(yAxisScale);
-        var tooltip = d3v4.select(selector + ' > div.tooltip');
+        var tooltip = d3v4.select(selector + ' > div.mytooltip');
         console.log(tooltip);
         var vBar = d3v4.select(selector + ' > div.vBar');
 
@@ -131,22 +124,6 @@ function themeriver(selector) {
                 }
             }
         }
-
-        // Side graph variables.
-        var xScaleSideGraph = d3v4.scaleBand().range([margin.left, margin.left + sideGraphGraphWidth]).domain(keys);
-        var yScaleSideGraph = d3v4.scaleLinear().range([sideGraphGraphHeight + margin.top, margin.top]).domain([0, maxV]);
-        var xAxisSideGraph = d3v4.axisBottom(xScaleSideGraph);
-        var yAxisSideGraph = d3v4.axisLeft(yScaleSideGraph);
-
-        // Append axis to side graph.
-        sideGraph.append('g')
-            .attr('transform', 'translate(0,' + (sideGraphHeight - margin.bottom) + ')')
-            .attr('class', 'axis')
-            .call(xAxisSideGraph);
-        sideGraph.append('g')
-            .attr('transform', 'translate(' + margin.left + ',0)')
-            .attr('class', 'axis')
-            .call(yAxisSideGraph);
 
         // Append ThemeRiver graph.
         canvas.selectAll('g')
@@ -193,7 +170,7 @@ function themeriver(selector) {
             .on('mousemove', function(d, i) {
                 var mX = d3v4.mouse(this)[0], mY = d3v4.mouse(this)[1];
                 var timeIdx = xToTimeIdx(mX);
-                tooltip.select('.content')
+                tooltip.select('p')
                         .text(keys[i] + ', ' + timeSteps[timeIdx] + ', ' + (d[timeIdx][1] - d[timeIdx][0]));
                 tooltip.style('left', (xScale(timeSteps[timeIdx]) + xScale.bandwidth() / 2) + 'px')
                     .style('top', mY + 'px')
@@ -206,17 +183,6 @@ function themeriver(selector) {
                     if (k != timeLabel) {
                         currentData.push({'label': k, 'val': data[timeIdx][k]});
                     }
-                }
-                sideGraph.selectAll('.rect').remove();
-                for (var k = 0; k < currentData.length; k++) {
-                    var h = yScaleSideGraph(0) - yScaleSideGraph(parseFloat(currentData[k].val)) || 0;
-                    sideGraph.append('rect')
-                            .attr('class', 'rect')
-                            .attr('fill', colorScale(currentData[k].label))
-                            .attr('x', xScaleSideGraph(currentData[k].label))
-                            .attr('y', margin.top + sideGraphGraphHeight - h)
-                            .attr('height', h)
-                            .attr('width', sideGraphGraphWidth / currentData.length);
                 }
             });
     };

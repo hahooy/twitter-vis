@@ -101,7 +101,7 @@ hr {
     position: relative;
 }
 
-.tooltip {   
+.mytooltip {   
     position: absolute;
     padding: 5px;
     font: 12px sans-serif;
@@ -113,7 +113,7 @@ hr {
     display: none;
 }
 
-.tooltip p {
+.mytooltip p {
     text-align: center;
     vertical-align: middle;
 }
