@@ -189,6 +189,12 @@
           <div class="row">
             <p id="selectedDate" for="slider"></p>
             <div id="slider"></div>
+            <div id="themeriver">
+              <div class="tooltip">
+                <p class="content"></p>
+              </div>
+              <div class="vBar"></div>
+            </div>
           </div>
         </div>
         <div class="col-md-4">
@@ -313,6 +319,10 @@
 <!-- AdminLTE App js -->
 <script src="dist/js/app.js"></script>
 <!-- D3.js -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript">
+  var d3v4 = d3; // Use both v3 and v4. v4 is for themeriver.
+</script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <!-- D3 map shape files -->
 <script src="https://d3js.org/topojson.v1.min.js"></script>
@@ -326,6 +336,8 @@
 <script src="js/wordcloud.js"></script>
 <!-- generate map visualization -->
 <script src="js/usmap.js"></script>
+<!-- themeriver for map visualization -->
+<script src="js/themeriver.js"></script>
 <!-- slider for map visualization -->
 <script src="js/mapslider.js"></script>
 <!-- App logic js -->

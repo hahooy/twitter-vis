@@ -1,4 +1,4 @@
-function themeriver(cssSelector) {
+function themeriver(selector) {
     // Set up canvas
     var margin = {top: 20, bottom: 20, left: 100, right: 20};
     var padding = {top: 10, bottom: 10, left: 10, right: 10};
@@ -11,23 +11,74 @@ function themeriver(cssSelector) {
     var sideGraphGraphHeight = sideGraphHeight - margin.top - margin.bottom;
     var colorScheme = ['#014636', '#016c59', '#02818a', '#3690c0', '#67a9cf', '#a6bddb', '#d0d1e6', '#ece2f0', '#fff7fb'];
 
-    var canvas = d3.select(cssSelector)
+    var canvas = d3v4.select(selector)
                     .append('svg')
                     .attr('width', width)
                     .attr('height', height);
-    var sideGraph = d3.select('#side-graph')
+    var sideGraph = d3v4.select('#side-graph')
                     .append('svg')
                     .attr('width', sideGraphWidth)
                     .attr('height', sideGraphHeight);
 
-    // read data.
-    d3.csv(filename, function(data) {
+    function getAvailableDates(data) {
+        var dates = [];
+        for (date in data) {
+            dates.push(date);
+        }
+
+        dates.sort(function(date1, date2) {
+            return new Date(date1) - new Date(date2);
+        });
+        return dates;
+    }
+
+    function preprocess(data) {
+        /*
+            Original format:  {'2017-04-15': {
+                                    'hashtags_all_states': [{'text': '#something', 'size': 1000}]
+                                    }
+                                }
+            Target format: [
+                            {'date': '2017-04-15', '#something': 1000}
+                            ]
+        */
+        var dataProcessed = [];
+        var trendingWords = {};
+        var dates = getAvailableDates(data);
+        for (date in data) {
+            var hashtags = data[date].hashtags_all_states;
+            for (var i = 0; i < 3 && i < hashtags.length; i++) {
+                trendingWords[hashtags[i].text] = 0;
+            }
+        }
+        dates.forEach(function(date) {
+            var d = {'date': date};
+            var hashtags = data[date].hashtags_all_states;
+            var hashtagsMap = {};
+            for (var i = 0; i < data[date].hashtags_all_states.length; i++) {
+                hashtagsMap[hashtags[i].text] = hashtags[i].size;
+            }
+            for (word in trendingWords) {
+                if (word in hashtagsMap) {
+                    d[word] = hashtagsMap[word];
+                } else {
+                    d[word] = 0;
+                }
+            }
+            dataProcessed.push(d);
+        });
+        
+        return dataProcessed;
+    }
+
+    function update(data, currentDateIdx, renderData) {
+        data = preprocess(data);
         console.log(data);
         if (data.length == 0) {
             return;
         }
         // Initial setup.
-        var timeLabel = d3.keys(data[0])[0];
+        var timeLabel = 'date';
         var timeSteps = [];
         var maxTotal = 0;
         var keys = [];
@@ -52,18 +103,18 @@ function themeriver(cssSelector) {
             maxTotal = Math.max(maxTotal, total);
         }
         timeSteps.sort();
-        console.log(timeSteps);
 
         // Main graph variables.
-        var stack = d3.stack().offset(d3.stackOffsetSilhouette).keys(keys)(data);
-        var xScale = d3.scaleBand().range([margin.left, graphWidth + margin.left]).domain(timeSteps);
-        var yScale = d3.scaleLinear().range([graphHeight + margin.top, margin.top]).domain([-maxTotal/2, maxTotal/2]);
-        var yAxisScale = d3.scaleLinear().range([graphHeight + margin.top, margin.top]).domain([0, maxTotal]);
-        var colorScale = d3.scaleOrdinal().range(colorScheme);
-        var xAxis = d3.axisBottom(xScale).tickFormat(d3.format('d'));
-        var yAxis = d3.axisLeft(yAxisScale);
-        var tooltip = d3.select('div#tooltip');
-        var vBar = d3.select('div#vBar');
+        var stack = d3v4.stack().offset(d3v4.stackOffsetSilhouette).keys(keys)(data);
+        var xScale = d3v4.scaleBand().range([margin.left, graphWidth + margin.left]).domain(timeSteps);
+        var yScale = d3v4.scaleLinear().range([graphHeight + margin.top, margin.top]).domain([-maxTotal/2, maxTotal/2]);
+        var yAxisScale = d3v4.scaleLinear().range([graphHeight + margin.top, margin.top]).domain([0, maxTotal]);
+        var colorScale = d3v4.scaleOrdinal().range(colorScheme);
+        var xAxis = d3v4.axisBottom(xScale);
+        var yAxis = d3v4.axisLeft(yAxisScale);
+        var tooltip = d3v4.select(selector + ' > div.tooltip');
+        console.log(tooltip);
+        var vBar = d3v4.select(selector + ' > div.vBar');
 
 
         var xToTimeIdx = function(x) {
@@ -82,10 +133,10 @@ function themeriver(cssSelector) {
         }
 
         // Side graph variables.
-        var xScaleSideGraph = d3.scaleBand().range([margin.left, margin.left + sideGraphGraphWidth]).domain(keys);
-        var yScaleSideGraph = d3.scaleLinear().range([sideGraphGraphHeight + margin.top, margin.top]).domain([0, maxV]);
-        var xAxisSideGraph = d3.axisBottom(xScaleSideGraph);
-        var yAxisSideGraph = d3.axisLeft(yScaleSideGraph);
+        var xScaleSideGraph = d3v4.scaleBand().range([margin.left, margin.left + sideGraphGraphWidth]).domain(keys);
+        var yScaleSideGraph = d3v4.scaleLinear().range([sideGraphGraphHeight + margin.top, margin.top]).domain([0, maxV]);
+        var xAxisSideGraph = d3v4.axisBottom(xScaleSideGraph);
+        var yAxisSideGraph = d3v4.axisLeft(yScaleSideGraph);
 
         // Append axis to side graph.
         sideGraph.append('g')
@@ -105,8 +156,8 @@ function themeriver(cssSelector) {
             .attr('fill', function(d) {return colorScale(d.key);})
             .append('path')
             .attr('class', 'path')
-            .attr('d', d3.area()
-                        .curve(d3.curveCardinal)
+            .attr('d', d3v4.area()
+                        .curve(d3v4.curveCardinal)
                         .x(function(d) {return xScale(d.data[timeLabel]) + xScale.bandwidth() / 2;})
                         .y0(function(d) {return yScale(parseFloat(d[1]));})
                         .y1(function(d) {return yScale(parseFloat(d[0]));}));
@@ -140,9 +191,9 @@ function themeriver(cssSelector) {
                 vBar.style('display', 'none');
             })
             .on('mousemove', function(d, i) {
-                var mX = d3.mouse(this)[0], mY = d3.mouse(this)[1];
+                var mX = d3v4.mouse(this)[0], mY = d3v4.mouse(this)[1];
                 var timeIdx = xToTimeIdx(mX);
-                tooltip.select('#content')
+                tooltip.select('.content')
                         .text(keys[i] + ', ' + timeSteps[timeIdx] + ', ' + (d[timeIdx][1] - d[timeIdx][0]));
                 tooltip.style('left', (xScale(timeSteps[timeIdx]) + xScale.bandwidth() / 2) + 'px')
                     .style('top', mY + 'px')
@@ -168,7 +219,11 @@ function themeriver(cssSelector) {
                             .attr('width', sideGraphGraphWidth / currentData.length);
                 }
             });
-    });
+    };
+
+    return {
+        update: update
+    };
 }
 
 

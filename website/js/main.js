@@ -1,7 +1,7 @@
 $(function() {
     // Constants.
-    var baseURL = "https://twitter-vis-site.tk:8000/twitter_vis/";
-    // var baseURL = "http://127.0.0.1:8000/twitter_vis/";
+    //var baseURL = "https://twitter-vis-site.tk:8000/twitter_vis/";
+    var baseURL = "http://127.0.0.1:9000/twitter_vis/";
     var tweetsByStatesURL = "tweets_states/";
     var hashtagURL = "top_hashtags/";
 
@@ -19,6 +19,8 @@ $(function() {
     var gisMap = usmap();
     // Create a slider for the map.
     var slider = mapslider();
+    // Themeriver.
+    var river = themeriver('#themeriver');
     // Query parameters.
     var params = {};
 
@@ -30,14 +32,13 @@ $(function() {
             data = JSON.parse(data);
             console.log(data);
             slider.update(data, 0, renderData);
+            river.update(data);
             renderData(data[slider.getCurrentDate()]);
         });
     }
 
     // make a new request after the user select a hashtag.
     function renderData(dataAtDate) {
-        console.log(dataAtDate);
-        console.log(dataAtDate.hashtags_all_states);
         smallWordCloud.update(dataAtDate.hashtags_all_states);
         largeWordCloud.update(dataAtDate.hashtags_all_states);
         gisMap.updateBubbles(dataAtDate, smallWordCloud);
