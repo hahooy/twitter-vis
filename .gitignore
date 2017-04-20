@@ -6,3 +6,6 @@ twitter_env
 *.cert
 *.key
 *.out
+*.csv
+data/data/*
+twitter.sql
