@@ -197,7 +197,7 @@ function themeriver(selector) {
                     currentDateIdx = timeIdx;
                     renderData(originalData[availableDates[currentDateIdx]]);
                 }
-                vBar.style('left', mX + 'px')
+                vBar.style('left', (mX + 10) + 'px')
                     .style('top', '0px')
                     .style('height', height + 'px')
                     .style('display', 'block');
@@ -209,7 +209,7 @@ function themeriver(selector) {
                     currentDateIdx = timeIdx;
                     renderData(originalData[availableDates[currentDateIdx]]);
                 }
-                vBar.style('left', mX + 'px')
+                vBar.style('left', (mX + 10) + 'px')
                     .style('top', '0px')
                     .style('height', height + 'px')
                     .style('display', 'block');
