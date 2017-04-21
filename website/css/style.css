@@ -103,10 +103,9 @@ hr {
 
 .mytooltip {   
     position: absolute;
-    padding: 5px;
-    font: 12px sans-serif;
-    background: rgba(255,237,160,0.8);
-    border: 1px solid #ffeb3b;
+    padding: 2px;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid white;
     border-radius: 5px;
     pointer-events: none;
     text-align: center;
@@ -114,6 +113,7 @@ hr {
 }
 
 .mytooltip p {
+    font: 12px sans-serif;
     text-align: center;
     vertical-align: middle;
 }
@@ -125,4 +125,8 @@ hr {
     background: rgb(0,0,0);
     display: none;
     pointer-events: none;
+}
+
+.content-wrapper {
+    background: white;
 }

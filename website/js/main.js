@@ -13,17 +13,13 @@ $(function() {
 
     //Create a new instance of the word cloud visualisation.
     var smallWordCloud = wordCloud('#small-wordcloud-vis', smallWCWidth, smallWCHeight);
-    var largeWordCloud = wordCloud('#wordcloud-vis', largeWCWidth, largeWCHeight);
 
     // Create a gis map.
     var gisMap = usmap();
-    // Create a slider for the map.
-    var slider = mapslider();
     // Themeriver.
     var river = themeriver('#themeriver');
     // Query parameters.
     var params = {};
-
 
     // Query wrapper.
     function queryTweets(params) {
@@ -31,16 +27,14 @@ $(function() {
         $.get( baseURL + tweetsByStatesURL, params ).done(function( data ) {
             data = JSON.parse(data);
             console.log(data);
-            slider.update(data, 0, renderData);
-            river.update(data);
-            renderData(data[slider.getCurrentDate()]);
+            river.update(data, 0, renderData);
+            renderData(data[river.getCurrentDate()]);
         });
     }
 
     // make a new request after the user select a hashtag.
     function renderData(dataAtDate) {
         smallWordCloud.update(dataAtDate.hashtags_all_states);
-        largeWordCloud.update(dataAtDate.hashtags_all_states);
         gisMap.updateBubbles(dataAtDate, smallWordCloud);
         gisMap.updateMap(dataAtDate);
     }
