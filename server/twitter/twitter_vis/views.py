@@ -27,11 +27,36 @@ def tweets_summary(request):
             SQL = "select count(*) from hashtag;"
             cur.execute(SQL)
             ret['num_hashtags'] = cur.fetchone()[0]
-            SQL = "select publish_date, count(*) from tweet group by publish_date;"
+            SQL = """select publish_date, count(*) as total_tweets, 
+                        sum(case when sentiment = 4 then 1 end) as positive_tweets, 
+                        sum(case when sentiment = 2 then 1 end) as neutral_tweets, 
+                        sum(case when sentiment = 0 then 1 end) as negative_tweets 
+                        from tweet group by publish_date;"""
             cur.execute(SQL)
             ret['tweet_timeline'] = []
             for i in cur.fetchall():
-                ret['tweet_timeline'].append({'date':i[0].strftime('%Y-%m-%d'), 'count':i[1]})
+                ret['tweet_timeline'].append({
+                                                'date':i[0].strftime('%Y-%m-%d'), 
+                                                'total_tweets':i[1],
+                                                'positive_tweets':i[2],
+                                                'neutral_tweets':i[3],
+                                                'negative_tweets':i[4]
+                                                })
+            SQL = """
+                select publish_date, count(*) 
+                from tweet as t 
+                join tweet_has_hashtag as thh 
+                on t.id = thh.id 
+                group by publish_date;
+            """
+            cur.execute(SQL)
+            ret['hashtag_timeline'] = []
+            for i in cur.fetchall():
+                ret['hashtag_timeline'].append({
+                                                'date':i[0].strftime('%Y-%m-%d'), 
+                                                'total_hashtags':i[1]
+                                                })
+            print ret['hashtag_timeline']
     return HttpResponse(json.dumps(ret))    
 
 
