@@ -29,14 +29,17 @@ $(function() {
             console.log(data);
             river.update(data, 0, renderData);
             renderData(data[river.getCurrentDate()]);
+			
         });
     }
-
+  
     // make a new request after the user select a hashtag.
     function renderData(dataAtDate) {
         smallWordCloud.update(dataAtDate.hashtags_all_states);
         gisMap.updateBubbles(dataAtDate, smallWordCloud);
         gisMap.updateMap(dataAtDate);
+		//gisMap.hoverMap(dataAtDate);
+		
     }
 
 
@@ -69,5 +72,6 @@ $(function() {
 
     initVisStatic();
     queryTweets(params); // Initial query.
+	
 });
 

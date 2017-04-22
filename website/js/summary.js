@@ -4,7 +4,7 @@
         // Query data and render.
         $.get(baseURL).done(function( data ) {
             data = JSON.parse(data);
-            console.log(data.tweet_timeline);
+            //console.log(data.tweet_timeline);
 			generateTimeLineGraph(data.tweet_timeline);
 			generateBarPlots(data.tweet_timeline);
         });
@@ -27,6 +27,11 @@
 		  
 	  }
 	  
+	  dates.sort(function(d1,d2){
+		
+		return d1-d2;
+	});
+	//console.log(dates);
 	  var plotPositive = {
 		  x:dates,
 		  y:positive,
@@ -51,7 +56,7 @@
 	  };
 	  
 	  
-	  console.log(dates);
+	  //console.log(dates);
 	  
 	  var dataBarPlot=[plotPositive, plotNegative, plotNeutral];
 	  
@@ -79,7 +84,7 @@
 		
 		return new Date(d1[0])-new Date(d2[0]);
 	});
-	//console.log(dataLineGraph);
+	console.log(dataLineGraph);
 	
     new Dygraph(
         document.getElementById("timeline"),
@@ -91,11 +96,21 @@
         xlabel: 'Day',
         ylabel: 'Tweets',		
         legend: 'always',
-		rangeSelectorPlotFillColor: 'MediumSlateBlue',
-              rangeSelectorPlotFillGradientColor: 'rgba(123, 104, 238, 0)',
-			  colorValue: 0.8,
-              fillAlpha: 0.4,
-        		labels :['Days','Tweets']
+		labels :['Days','Tweets'],
+		axes:{
+			x:
+			{
+				axisLabelWidth: 30,
+				pixelsPerLabel: 30,
+				axisLabelFontSize: 10,
+		
+  drawGrid: false,
+  drawAxis: true
+ 
+  
+			}
+			
+		}
 		
 		});
 	
