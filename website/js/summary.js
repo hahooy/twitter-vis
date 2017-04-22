@@ -85,13 +85,17 @@
         document.getElementById("timeline"),
         dataLineGraph, 
         { 
-		
+		title:'Tweets Per Day',
         drawPoints: true,
-        showRoller: true,
-       
+		showRangeSelector: true,
+        xlabel: 'Day',
+        ylabel: 'Tweets',		
         legend: 'always',
-        showRangeSelector: true,
-		labels :['Days','Tweets']
+		rangeSelectorPlotFillColor: 'MediumSlateBlue',
+              rangeSelectorPlotFillGradientColor: 'rgba(123, 104, 238, 0)',
+			  colorValue: 0.8,
+              fillAlpha: 0.4,
+        		labels :['Days','Tweets']
 		
 		});
 	
