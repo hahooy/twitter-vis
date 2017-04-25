@@ -56,7 +56,7 @@ function usmap() {
     insertRadius(data.tweets_per_state);
     gisMap.bubbles(data.tweets_per_state,{
 	       popupTemplate: function(geography, data){
-		    return ['<div class="hoverinfo"><strong>' +  data.name + '</strong>',
+		    return ['<div class="hoverinfo"><strong>' +  geography.properties.name + '</strong>',
 			'<br/>Total  Tweets: ' +  data.total_num_tweet + ,
             '<br/>Total Negative Tweets: ' +  data.total_neg_tweet + ,
             '<br/>Total Positive Tweets: ' +  data.total_pos_tweet + '',
