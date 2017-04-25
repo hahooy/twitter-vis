@@ -78,10 +78,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="#data-summary"><i class="fa fa-circle-o"></i>Data Summary</a></li>
+            <li class="active"><a href="#"><i class="fa fa-circle-o"></i>Data Summary</a></li>
             <li><a href="#map"><i class="fa fa-circle-o"></i>Map</a></li>
-            <li><a href="#wordcloud"><i class="fa fa-circle-o"></i>Word Cloud</a></li>
-          </ul>
+<!--             <li><a href="#wordcloud"><i class="fa fa-circle-o"></i>Word Cloud</a></li>
+ -->          </ul>
         </li>
 
         <!-- results side menu -->
@@ -116,7 +116,7 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div id="data-summary" class="content-wrapper">
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -127,96 +127,75 @@
 
     <!-- Main content -->
     <section class="content">
-      
       <!-- /.row -->
       <!-- Main row -->
-      <div class="row">
-
+      <div class="row box" style="border-spacing: 10px">
         <!-- Left col -->
-        <section class="col-lg-7 connectedSortable" style="width: 500px">
+        <section class="col-lg-7 connectedSortable">
           <!-- Custom tabs (Charts with tabs)-->
           <div class="nav-tabs-custom">
-            <!-- Tabs within a box -->
-            <!-- <ul class="nav nav-tabs pull-right">
-              <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
-              <li><a href="#sales-chart" data-toggle="tab">Donut</a></li>
-              <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
-            </ul> -->
-            <div class="tab-content no-padding">
-              <img src="images/summary_example.png" alt="Data Summary Example" style="height:500px; width:100%">
-<!--               <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 500px;"></div>
- --><!--               <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
- -->            </div>
+            <div class="box box-solid box-primary" id="barChart" style="height: 500px; width: 104%"> </div>
           </div>
-          <!-- /.nav-tabs-custom -->
         </section>
 
         <!-- right col (We are only adding the ID to make the widgets sortable)-->
-        <section class="col-lg-5 connectedSortable" style="width:650px">
-
-          <!-- Map box -->
-          <div class="box box-solid bg-light-blue-gradient">
-            <div class="box-header">
-              <h3 class="box-title">
-                Number of Users Everyday
-              </h3>
-            </div>
-            <div class="box-body">
-              <img src="images/summary_line_chart.jpg" alt="Number of users over the week" style="height:500px; width:100%">
-              <!-- <div id="world-map" style="height: 500px;"></div> -->
-            </div>
-          </div>
+        <section class="col-lg-5 connectedSortable">
+          <div class="box box-solid box-primary" id="timeline" style="height:500px; background: #ffffff"> </div>
           <!-- /.box -->
         </section>
         <!-- right col -->
       </div>
       <!-- /.row (main row) -->
-      </section>
-  </div>
+    </section>
 
-  <!-- Main content -->
-  <div id="map" class="content-wrapper">
-    <div class="container big-margin-container">
-      <h2>Map</h2>
-      <hr>
-    </div>
-    <div  class="container-fluid small-margin-container"> 
-      <div class="row">
-        <div class="col-md-8">
-          
-		  <div class="row">
-                   
-		  <div id="mapvis" class="map container-fluid"></div>
-          </div>
-		  
-          <div class="row">
-            <div id="themeriver" class="map container-fluid">
-              <div class="vBar"></div>
-              <div class="mytooltip">
-                <p></p>
+    <div id="map">
+ <!--      <div class="container big-margin-container">
+        <h2>Map</h2>
+        <hr>
+      </div> -->
+      <section class="content-header">
+        <h1>
+          Twitter Analysis
+          <small>Map</small>
+        </h1>
+      </section>
+
+      <section class="content">
+      <!-- <div  class="container-fluid small-margin-container">  -->
+        <div class="row box"  style="border-spacing: 10px">
+          <section class="col-md-8 connectedSortable">
+            <div class="box box-solid box-primary" style="background: #dddddd; height:700px">
+              <div class="row">
+                <div id="mapvis" class="map container-fluid"></div>
+              </div>
+    		  
+              <div class="row">
+                <div id="themeriver" class="map container-fluid">
+                  <div class="vBar"></div>
+                  <div class="mytooltip"></div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="row">
-            
-          </div>
-          <br>
-          <div class="row">
-            <input id="search-hashtag" autocomplete="off" />
-          </div>
-          <div class="row">
-            <div id='small-wordcloud-vis'></div>
-          </div>
-		   <div id="hoverinfo" class="row"></div>
-        </div>
+          </section>
+
+          <section class="col-md-4 connectedSortable">
+            <div class="box box-solid box-info">
+              <div class="row">
+                <input id="search-hashtag" autocomplete="off" />
+              </div>
+              <div class="row">
+                <div id='small-wordcloud-vis'></div>
+              </div>
+    		      <div id="hoverinfo" class="row"></div>
+            </div>
+          </section>
+        <!-- </div> -->
       </div>
+      </section>
     </div>
-  </div>
 
   <!-- word cloud -->
-  <div id="wordcloud" class="container-fluid content-wrapper">
+  <!-- <div id="wordcloud" class="container-fluid content-wrapper">
     <div>
       <h2>Word Cloud</h2>
       <hr>
@@ -224,87 +203,91 @@
     <div>
       <div id='wordcloud-vis'></div>
     </div>
-  </div>
+  </div> -->
 
   <!-- results -->
-  <div id="results" class="container-fluid content-wrapper">
-    <div>
-      <h2>Results</h2>
-      <hr>
+    <div id="results" class="container-fluid">
+      <section class="content-header">
+        <h1>
+          Twitter Analysis
+          <small>Results</small>
+        </h1>
+      </section>
+      <div>
+        <p>TODO: results here.</p>
+      </div>
     </div>
-    <div>
-      <p>TODO: results here.</p>
-    </div>
-  </div>
 
   <!-- progress book -->
-  <div id="progress-book" class="container-fluid content-wrapper">
-    <div>
-      <h2>Process Book</h2>
-      <hr>
-    </div>
-    <div>
-      <h3 class="content-header"><b>Overview and Motivation</b></h3>
-      <p>Social networks have changed the way people communicate with each other. Today the world is a lot more connected than it was before. People are also more open towards voicing their opinions regarding issues of their interests. These issues can be related to sports, careers, politics, art, etc. 
-      </br></br>
-
-      Social network websites like Twitter and Facebook provide  great resources to learn about the preferences and interests of people in different demographics. Based on those interests and preferences, it’s easy to know about the sentiments and the location of the people. The data collected from these social networking websites is mostly in the form of raw text, but based on the context it’s easy to know the sentiments and opinions of people residing in different demographics. Our goal for the project is to gather, group and analyze such text data and provide meaningful insights in the form of visualizations. 
-      </br></br>
-
-      For our project we have decided to work with twitter data which was collected for over a week. Tweets are complex and have many different attributes. It would be very interesting to visualize such data and discover any patterns in terms of how people tweet, where they tweet and when they tweet.
-      </p>
-
-      <h3 class="content-header"><b>Related Work</b></h3>
-
-      <h3 class="content-header"><b>Questions</b></h3>
-      <p><b>1. How many people are tweeting in different states depending on time?</br>
-        2. What are the trending topics on twitter?</br>
-        3. Are there sentiment value differences based on different states in United States?
-      </b></p>
-      <p>
-      By using the visualizations for twitter data, we can learn a summary of situations happening throughout the country as well as how twitter users feel on these situations from the state-by-state sentiment analysis. Also, we can learn the times when twitter users most used and least used based on time of the day in different states.
-      </br></br>
-
-      These visualizations can highly benefit companies as they can learn the time most twitter users are active, things people are interested, etc., and answer the questions for whom they should advertise their products, when and where, etc. These can also give information to anyone who are interested in learning what’s happening on twitter in a minute.
-      </p>
-
-      <h3 class="content-header"><b>Data</b></h3>
-      <p><b>Source</b>: The twitter data comes from a project of the cse530s class. A script has been implemented to programmatically stream tweets from twitter streaming APIs. Approximately 1 million tweets have been downloaded for over a week. We plan to use the same script to stream the data for a longer period of time because we want to visualize its time dependence. We will also need county and state boundary data to do GIS visualization for the tweets. This data is also from cse530s class and it is downloaded from NHGIS. </br></br>
-        
-      <b>Scrapting Method</b>:</br></br>
-      <b>Data Cleanup</b>:
-      </p>
-
-      <h3 class="content-header"><b>Exploratory Data Analysis</b></h3>
-      <h3 class="content-header"><b>Design Evolution</b></h3>
-      <h3 class="content-header"><b>Implementation</b></h3>
-      <h3 class="content-header"><b>Evaluation</b></h3>
-
-    </div>
-    <div id="contact" class="container-fluid ">
+    <div id="progress-book" class="container-fluid">
+      <section class="content-header">
+        <h1>
+          Twitter Analysis
+          <small>Process Book</small>
+        </h1>
+      </section>
       <div>
-        <h2>Contact</h2>
-        <hr>
+        <h3 class="content-header"><b>Overview and Motivation</b></h3>
+        <p>Social networks have changed the way people communicate with each other. Today the world is a lot more connected than it was before. People are also more open towards voicing their opinions regarding issues of their interests. These issues can be related to sports, careers, politics, art, etc. 
+        </br></br>
+
+        Social network websites like Twitter and Facebook provide  great resources to learn about the preferences and interests of people in different demographics. Based on those interests and preferences, it’s easy to know about the sentiments and the location of the people. The data collected from these social networking websites is mostly in the form of raw text, but based on the context it’s easy to know the sentiments and opinions of people residing in different demographics. Our goal for the project is to gather, group and analyze such text data and provide meaningful insights in the form of visualizations. 
+        </br></br>
+
+        For our project we have decided to work with twitter data which was collected for over a week. Tweets are complex and have many different attributes. It would be very interesting to visualize such data and discover any patterns in terms of how people tweet, where they tweet and when they tweet.
+        </p>
+
+        <h3 class="content-header"><b>Related Work</b></h3>
+
+        <h3 class="content-header"><b>Questions</b></h3>
+        <p><b>1. How many people are tweeting in different states depending on time?</br>
+          2. What are the trending topics on twitter?</br>
+          3. Are there sentiment value differences based on different states in United States?
+        </b></p>
+        <p>
+        By using the visualizations for twitter data, we can learn a summary of situations happening throughout the country as well as how twitter users feel on these situations from the state-by-state sentiment analysis. Also, we can learn the times when twitter users most used and least used based on time of the day in different states.
+        </br></br>
+
+        These visualizations can highly benefit companies as they can learn the time most twitter users are active, things people are interested, etc., and answer the questions for whom they should advertise their products, when and where, etc. These can also give information to anyone who are interested in learning what’s happening on twitter in a minute.
+        </p>
+
+        <h3 class="content-header"><b>Data</b></h3>
+        <p><b>Source</b>: The twitter data comes from a project of the cse530s class. A script has been implemented to programmatically stream tweets from twitter streaming APIs. Approximately 1 million tweets have been downloaded for over a week. We plan to use the same script to stream the data for a longer period of time because we want to visualize its time dependence. We will also need county and state boundary data to do GIS visualization for the tweets. This data is also from cse530s class and it is downloaded from NHGIS. </br></br>
+          
+        <b>Scrapting Method</b>:</br></br>
+        <b>Data Cleanup</b>:
+        </p>
+
+        <h3 class="content-header"><b>Exploratory Data Analysis</b></h3>
+        <h3 class="content-header"><b>Design Evolution</b></h3>
+        <h3 class="content-header"><b>Implementation</b></h3>
+        <h3 class="content-header"><b>Evaluation</b></h3>
+
       </div>
-      <div>
-        <div class="row">
-          <div class="col-md-4">
-            <h3>Wint Yee Hnin</h3>
+      <div id="contact" class="container-fluid ">
+        <section class="content-header">
+          <h1>
+            Twitter Analysis
+            <small>Contact</small>
+          </h1>
+        </section>
+        <div>
+          <div class="row">
+            <div class="col-md-4">
+              <h3>Wint Yee Hnin</h3>
+            </div>
+            <div class="col-md-4">
+              <h3>Yongzheng Huang</h3>
+            </div>
+            <div class="col-md-4">
+              <h3>Krushnaraj Kamtekar</h3>
+            </div>
           </div>
-          <div class="col-md-4">
-            <h3>Yongzheng Huang</h3>
-          </div>
-          <div class="col-md-4">
-            <h3>Krushnaraj Kamtekar</h3>
-          </div>
-        </div>
 
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- contact -->
-
 </div>
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
@@ -346,5 +329,11 @@
 <script src="js/mapslider.js"></script>
 <!-- App logic js -->
 <script src="js/main.js"></script>
+
+<!-- summary page scripts -->
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="http://dygraphs.com/dygraph-combined.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript" src="js/summary.js"></script>
 </body>
 </html>

@@ -1550,18 +1550,23 @@ a:focus {
  */
 .box {
   position: relative;
-  border-radius: 3px;
-  background: #ffffff;
-  border-top: 3px solid #d2d6de;
+  border-radius: 0;
+  background: #eeeeee;
+  border-top: 3px solid;
   margin-bottom: 20px;
   width: 100%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
+.box.summary{
+  height: 550px;
+}
 .box.box-primary {
-  border-top-color: #3c8dbc;
+  border-top-color: #66b3ff;
+  border-color: #66b3ff;
 }
 .box.box-info {
-  border-top-color: #00c0ef;
+  border-top-color: #000000;
+  border-color: #000000;
 }
 .box.box-danger {
   border-top-color: #dd4b39;
@@ -1598,6 +1603,7 @@ a:focus {
 }
 .box.box-solid {
   border-top: 0;
+  border: 1px solid;
 }
 .box.box-solid > .box-header .btn.btn-default {
   background: transparent;
