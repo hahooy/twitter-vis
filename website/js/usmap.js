@@ -14,57 +14,70 @@ function usmap() {
       scope: 'usa',
       width: 900,
       element: document.getElementById('mapvis'),
-	 
       geographyConfig: {
-          highlightBorderColor: MAP_BORDER_COLOR,
-		  
+        highlightBorderColor: MAP_BORDER_COLOR
       },
       highlightBorderWidth: 5,
       fills: {
-            defaultFill: MAP_DEFAULT_FILL,
-            bubbleColor: BUBBLE_DEFAULT_FILL
-          }
-
+        defaultFill: MAP_DEFAULT_FILL,
+        0: "#FF0000",
+        1.8: "#e06c00",
+        2: "#ffff00",
+        2.2: "#00ffff",
+        4: "#0000ff",
+        // bubbleColor: BUBBLE_DEFAULT_FILL
+      }
+  });
+  gisMap.legend({
+    legendTitle : "Sentiment Color",
+    labels: {
+      defaultFill: "No tweet",
+      0: "Extremely Negative",
+      1.8: "Negative",
+      2: "Neutral",
+      2.2: "Positive",
+      4: "Extremely Positive",
+    }
   });
 
-   
-  
   // Update the map.
   function updateMap(data) {
-    // Color scale.
-    var colorScale = d3.scale.linear()
-                              .domain(SENTIMENT_DOMAIN)
-                              .range(SENTIMENT_COLOR_RANGE);
+  // Color scale.
+  var colorScale = d3.scale.linear()
+                      .domain(SENTIMENT_DOMAIN)
+                      .range(SENTIMENT_COLOR_RANGE);
+
     var allStates = Datamap.prototype.usaTopo.objects.usa.geometries.map(function(state) {
-      return state.id
+      return state.id;
     });
     var colors = {};
-	//var updatedData=[];
     for (var i = 0; i < allStates.length; i++) {
       colors[allStates[i]] = MAP_DEFAULT_FILL;
     }
     for (var i = 0; i < data.tweets_per_state.length; i++) {
       colors[data.tweets_per_state[i].abbreviation] = colorScale(data.tweets_per_state[i].avg_sentiment);
-	  //updatedData.push([data.tweets_per_state[i].total_pos_tweet, data.tweets_per_state[i].total_neg_tweet, data.tweets_per_state[i].total_neu_tweet]);
     }
     gisMap.updateChoropleth(colors, {reset: true});
   }
 
   // Create bubbles.
   function updateBubbles(data, wordcloud) {
-	  //console.log(data);
+
+	//   //console.log(data);
     insertRadius(data.tweets_per_state);
     gisMap.bubbles(data.tweets_per_state,{
-	       popupTemplate: function(geography, data){
+      popupTemplate: function(geography, data){
+        // console.log("hovering " + data.tweets_per_state);
+        // return "<div>test</div>";
+      //   console.log("hovering");
 		    return ['<div class="hoverinfo"><strong>' +  geography.properties.name + '</strong>',
-			'<br/>Total  Tweets: ' +  data.total_num_tweet + ,
-            '<br/>Total Negative Tweets: ' +  data.total_neg_tweet + ,
-            '<br/>Total Positive Tweets: ' +  data.total_pos_tweet + '',
-            '<br/>Total Neutral Tweets: ' +  data.total_neu_tweet + '',
-            '</div>'].join('');
-	       }
-		
-	});
+          '<br/>Total  Tweets: ' +  data.total_num_tweet,
+          '<br/>Total Negative Tweets: ' +  data.total_neg_tweet,
+          '<br/>Total Positive Tweets: ' +  data.total_pos_tweet,
+          '<br/>Total Neutral Tweets: ' +  data.total_neu_tweet,
+          '</div>'].join('');
+         }
+		});
     d3.selectAll("circle")
       .style("fill", BUBBLE_DEFAULT_FILL)
       .style("opacity", BUBBLE_DEFAULT_OPACITY)

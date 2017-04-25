@@ -36,6 +36,21 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
+
+<style type="text/css">
+  #legend {
+    padding: 1.5em 0 0 1.5em;
+  }
+
+  li.key {
+    border-top-width: 15px;
+    border-top-style: solid;
+    font-size: .75em;
+    width: 10%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+</style>
 <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
 <div class="wrapper">
 
@@ -164,9 +179,13 @@
       <!-- <div  class="container-fluid small-margin-container">  -->
         <div class="row box"  style="border-spacing: 10px">
           <section class="col-md-8 connectedSortable">
-            <div class="box box-solid box-primary" style="background: #dddddd; height:700px">
+            <div class="box box-solid box-primary" style="background: #dddddd; height:1000px">
               <div class="row">
+                <div id="legend"></div>
                 <div id="mapvis" class="map container-fluid"></div>
+                <!-- <div class="hoverinfo"></div> -->
+                <div class="hoverinfo">
+                </div>
               </div>
     		  
               <div class="row">
@@ -179,7 +198,7 @@
           </section>
 
           <section class="col-md-4 connectedSortable">
-            <div class="box box-solid box-info">
+            <div class="box box-solid box-info" style="background: #dddddd">
               <div class="row">
                 <input id="search-hashtag" autocomplete="off" />
               </div>

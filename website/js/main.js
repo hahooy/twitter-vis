@@ -37,9 +37,7 @@ $(function() {
     function renderData(dataAtDate) {
         smallWordCloud.update(dataAtDate.hashtags_all_states);
         gisMap.updateBubbles(dataAtDate, smallWordCloud);
-        gisMap.updateMap(dataAtDate);
-		//gisMap.hoverMap(dataAtDate);
-		
+        gisMap.updateMap(dataAtDate);		
     }
 
 
