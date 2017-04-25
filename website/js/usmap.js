@@ -42,7 +42,7 @@ function usmap() {
     }
   });
 
-  
+  //Bubble hover
   function hoverMap(data, flag)
   {
 	  if(flag==false) return;
