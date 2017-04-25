@@ -15,7 +15,9 @@ function usmap() {
       width: 900,
       element: document.getElementById('mapvis'),
       geographyConfig: {
+		
         highlightBorderColor: MAP_BORDER_COLOR
+		
       },
       highlightBorderWidth: 5,
       fills: {
@@ -40,6 +42,48 @@ function usmap() {
     }
   });
 
+  
+  function hoverMap(data, flag)
+  {
+	  if(flag==false) return;
+	  var pos, neg, neu, currDate;
+	  
+	  pos = data.total_pos_tweet;
+	  neg=data.total_neg_tweet;
+	  neu=data.total_neu_tweet;
+	  var state = data.name;
+	  var dataforPlot=[
+	   {
+		  
+		  x:['Positive','Negative','Neutral'],
+		  y:[pos, neg, neu],
+		  type:'bar',
+		  marker: {
+          color: 'rgb(0, 191, 255))'
+          }
+	   }
+	 ];
+	var layout = {
+          title: state,
+          font:{
+          family: 'Raleway, snas-serif'
+      },
+      showlegend: false,
+      xaxis: {
+      tickangle: -45
+      },
+      yaxis: {
+      zeroline: false,
+      gridwidth: 2
+     },
+     bargap :0.05
+    };
+      
+	Plotly.newPlot('hoverinfo', dataforPlot, layout);
+	  
+	  	  
+  }
+  
   // Update the map.
   function updateMap(data) {
   // Color scale.
@@ -65,31 +109,25 @@ function usmap() {
 
 	//   //console.log(data);
     insertRadius(data.tweets_per_state);
-    gisMap.bubbles(data.tweets_per_state,{
-      popupTemplate: function(geography, data){
-        // console.log("hovering " + data.tweets_per_state);
-        // return "<div>test</div>";
-      //   console.log("hovering");
-		    return ['<div class="hoverinfo"><strong>' +  geography.properties.name + '</strong>',
-          '<br/>Total  Tweets: ' +  data.total_num_tweet,
-          '<br/>Total Negative Tweets: ' +  data.total_neg_tweet,
-          '<br/>Total Positive Tweets: ' +  data.total_pos_tweet,
-          '<br/>Total Neutral Tweets: ' +  data.total_neu_tweet,
-          '</div>'].join('');
-         }
-		});
+	
+    gisMap.bubbles( data.tweets_per_state);
     d3.selectAll("circle")
       .style("fill", BUBBLE_DEFAULT_FILL)
       .style("opacity", BUBBLE_DEFAULT_OPACITY)
       .on("mouseover", function(d) {
+        hoverMap(d, true);		
+		
         d3.select(this)
           .transition()
           .duration(500)
           .style("fill", BUBBLE_HOVER_FILL)  
           .style("opacity", BUBBLE_HOVER_OPACITY);
         wordcloud.update(d.hashtags);
+		
       })
-      .on("mouseout", function(d) {       
+      .on("mouseout", function(d) {     
+
+        hoverMap(d, false)	 ; 
         d3.select(this)
           .transition()
           .duration(500)
