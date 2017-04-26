@@ -70,7 +70,7 @@ function wordCloud(selector, width, height) {
             });
             d3.layout.cloud().size([width, height])
                 .words(words)
-                .padding(5)
+                .padding(1)
                 .rotate(function() { return ~~(Math.random() * 2) * 90; })
                 .font("Impact")
                 .fontSize(function(d) { return d.size; })
