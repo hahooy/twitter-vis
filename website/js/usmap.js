@@ -15,7 +15,9 @@ function usmap() {
       width: 900,
       element: document.getElementById('mapvis'),
       geographyConfig: {
+		
         highlightBorderColor: MAP_BORDER_COLOR
+		
       },
       highlightBorderWidth: 5,
       fills: {
@@ -28,8 +30,46 @@ function usmap() {
       }
   });
 
-  // gisMap.addPlugin("continuousLegend", continuous);
-  // gisMap.continuousLegend();
+  //Bubble hover
+  function hoverMap(data, flag)
+  {
+	  if(flag==false) return;
+	  var pos, neg, neu, currDate;
+	  
+	  pos = data.total_pos_tweet;
+	  neg=data.total_neg_tweet;
+	  neu=data.total_neu_tweet;
+	  var state = data.name;
+	  var dataforPlot=[
+	   {
+		  
+		  x:['Positive','Negative','Neutral'],
+		  y:[pos, neg, neu],
+		  type:'bar',
+		  marker: {
+          color: 'rgb(0, 191, 255))'
+          }
+	   }
+	 ];
+	var layout = {
+          title: state,
+          font:{
+          family: 'Raleway, snas-serif'
+      },
+      showlegend: false,
+      xaxis: {
+      tickangle: -45
+      },
+      yaxis: {
+      zeroline: false,
+      gridwidth: 2
+     },
+     bargap :0.05
+    };
+      
+	Plotly.newPlot('hoverinfo', dataforPlot, layout);  	  
+  }
+  
   // Update the map.
   function updateMap(data) {
   // Color scale.
@@ -55,19 +95,24 @@ function usmap() {
 
 	//   //console.log(data);
     insertRadius(data.tweets_per_state);
-    gisMap.bubbles(data.tweets_per_state);
+    gisMap.bubbles( data.tweets_per_state);
     d3.selectAll("circle")
       .style("fill", BUBBLE_DEFAULT_FILL)
       .style("opacity", BUBBLE_DEFAULT_OPACITY)
       .on("mouseover", function(d) {
+        hoverMap(d, true);		
+		
         d3.select(this)
           .transition()
           .duration(500)
           .style("fill", BUBBLE_HOVER_FILL)  
           .style("opacity", BUBBLE_HOVER_OPACITY);
         wordcloud.update(d.hashtags);
+		
       })
-      .on("mouseout", function(d) {       
+      .on("mouseout", function(d) {     
+
+        hoverMap(d, false)	 ; 
         d3.select(this)
           .transition()
           .duration(500)
@@ -107,62 +152,6 @@ function usmap() {
       4: "Extremely Positive",
     }
   });
-  // draw legend
-  // function continuous() {
-  //   //Extra scale since the color scale is interpolated
-  //   var colorScale = d3.scale.linear()
-  //                     .domain(SENTIMENT_DOMAIN)
-  //                     .range(SENTIMENT_COLOR_RANGE);
-
-  //   //Calculate the variables for the temp gradient
-  //   var numStops = 10;
-  //   colorRange = colorScale.domain();
-  //   colorRange[2] = colorRange[1] - colorRange[0];
-  //   colorPoint = [];
-  //   for(var i = 0; i < numStops; i++) {
-  //     colorPoint.push(i * colorRange[2]/(numStops-1) + colorRange[0]);
-  //   }//for i
-
-  //   //Create the gradient
-  //   d3.selectAll("div")
-  //     .append("linearGradient")
-  //     .attr("id", "legend")
-  //     .attr("x1", "0%").attr("y1", "0%")
-  //     .attr("x2", "10%").attr("y2", "100%")
-  //     .selectAll("stop") 
-  //     .data(d3.range(numStops))                
-  //     .enter().append("stop") 
-  //     .attr("offset", function(d,i) { 
-  //       return colorScale( colorPoint[i] )/100;
-  //     })   
-  //     .attr("stop-color", function(d,i) { 
-  //       return colorScale( colorPoint[i] ); 
-  //     });
-
-  //   var legendHeight = 200;
-  //   //Color Legend container
-  //   var legendsvg = d3.selectAll("body").append("g")
-  //     .attr("class", "legendWrapper")
-  //     .attr("transform", "translate(" + 20 + "," + 20 + ")");
-
-  //   //Draw the Rectangle
-  //   legendsvg.append("rect")
-  //     .attr("class", "legendRect")
-  //     .attr("x", 0)
-  //     .attr("y", -legendHeight/2)
-  //     //.attr("rx", hexRadius*1.25/2)
-  //     .attr("width", 20)
-  //     .attr("height", legendHeight)
-  //     .style("fill", "url(#legend)");
-      
-  //   //Append title
-  //   // legendsvg.append("text")
-  //   //   .attr("class", "legendTitle")
-  //   //   .attr("x", 0)
-  //   //   .attr("y", -10)
-  //   //   .style("text-anchor", "middle")
-  //   //   .text("Number of Accidents");
-  // }
 
   return {
     updateMap: updateMap,
