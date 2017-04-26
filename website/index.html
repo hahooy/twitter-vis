@@ -179,7 +179,7 @@
       <!-- <div  class="container-fluid small-margin-container">  -->
         <div class="row box"  style="border-spacing: 10px">
           <section class="col-md-8 connectedSortable">
-            <div class="box box-solid box-primary" style="background: #dddddd; height:1000px">
+            <div class="box box-solid box-primary" style="background: #dddddd; height:800px">
               <div class="row">
                 <div id="mapvis" class="map container-fluid"></div>
               </div>
@@ -200,12 +200,16 @@
                 <input id="search-hashtag" autocomplete="off" />
               </div>
               <div class="row">
-                <div id='small-wordcloud-vis'></div>
+                <div id='small-wordcloud-vis' style = "margin-left: 30px; height: 400px"></div>
 				
               </div>
             </div>
       			<div class="box box-solid box-info" style="background: #dddddd">
+<<<<<<< HEAD
       			   <div id="hoverinfo" class ="row" style="height:400px; width: 400px; margin-left:10px; margin-bottom:30px; "></div>
+=======
+      			   <div id="hoverinfo" class ="row" style="height:300px; width: 400px; margin-left:10px; margin-bottom:30px; "></div>
+>>>>>>> 1e5fa255163d0569ac7418c7e2d1d7df7365a5d8
       			</div>
           </section>
         <!-- </div> -->
@@ -225,16 +229,32 @@
   </div> -->
 
   <!-- results -->
-    <div id="results" class="container-fluid">
+    <div id="results">
       <section class="content-header">
         <h1>
           Twitter Analysis
           <small>Results</small>
         </h1>
       </section>
-      <div>
-        <p>TODO: results here.</p>
-      </div>
+
+      <section class="content">
+        <div class="row box" style="background: #dddddd">
+          <section class="col-md-12 connectedSortable">
+            <h3 class="content-header"><b>Summary</b></h3>
+            <p>From our summary visualizations, we can see that people in United States tweeted the most during the weekend, with number of tweets fluctuating during weekdays but people tweeted the least on Thursday. This makes sense since most events occurred on weekends and people tweeted or posted on social media about the events right after the event over the weekend and some at the beginning of the week.</p>
+
+            <p>About 75% of the tweets have neutral sentiments, and positive tweets were found to be more prevalent than negative tweets, which is wonderful to see, especially when people often say social media is becoming toxic. However, there is no specific pattern of positive tweets such as weekends being more positive, and we believe that the sentiment of the tweets depend more on the events instead of the days.
+            </p>
+            <!-- April 12 - columnbus - john mayer -->
+            <h3 class="content-header"><b>Hypothesis Answers</b></h3>
+            <p><b>Q1: How many people are tweeting in different states depending on time?</b></br>
+            As we've speculated, people tweeted the most during the weekend all over the United States, with the highest numbers coming from California and New York, followed by Florida and then Texas.</p>
+
+            <p><b>Q2: What are the trending topics on twitter?</b></br>
+            As we've speculated, people tweeted the most during the weekend all over the United States, with the highest numbers coming from California and New York, followed by Florida and then Texas.</p>
+          </section>
+        </div>
+      </section>
     </div>
 
   <!-- progress book -->

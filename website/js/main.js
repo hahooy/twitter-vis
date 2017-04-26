@@ -7,7 +7,7 @@ $(function() {
 
     // UI variables.
     var smallWCWidth = 300;
-    var smallWCHeight = 500;
+    var smallWCHeight = 400;
     var largeWCWidth = 1000;
     var largeWCHeight = 300;
 
@@ -39,7 +39,6 @@ $(function() {
         gisMap.updateBubbles(dataAtDate, smallWordCloud);
         gisMap.updateMap(dataAtDate);		
     }
-
 
     // Initialize visualizations that don't rely on the server.
     function initVisStatic() {
