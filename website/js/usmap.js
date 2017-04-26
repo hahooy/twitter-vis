@@ -27,19 +27,7 @@ function usmap() {
         2: "#ffff00",
         2.2: "#00ffff",
         4: "#0000ff",
-        // bubbleColor: BUBBLE_DEFAULT_FILL
       }
-  });
-  gisMap.legend({
-    legendTitle : "Sentiment Color",
-    labels: {
-      defaultFill: "No tweet",
-      0: "Extremely Negative",
-      1.8: "Negative",
-      2: "Neutral",
-      2.2: "Positive",
-      4: "Extremely Positive",
-    }
   });
 
   //Bubble hover
@@ -80,9 +68,7 @@ function usmap() {
      bargap :0.05
     };
       
-	Plotly.newPlot('hoverinfo', dataforPlot, layout);
-	  
-	  	  
+	Plotly.newPlot('hoverinfo', dataforPlot, layout);  	  
   }
   
   // Update the map.
@@ -110,7 +96,6 @@ function usmap() {
 
 	//   //console.log(data);
     insertRadius(data.tweets_per_state);
-	
     gisMap.bubbles( data.tweets_per_state);
     d3.selectAll("circle")
       .style("fill", BUBBLE_DEFAULT_FILL)
@@ -156,10 +141,22 @@ function usmap() {
       }
   }
 
+  // add legend
+  gisMap.legend({
+    // legendTitle : "Sentiment Color",
+    labels: {
+      defaultFill: "No tweet",
+      0: "Extremely Negative",
+      1.8: "Negative",
+      2: "Neutral",
+      2.2: "Positive",
+      4: "Extremely Positive",
+    }
+  });
+
   return {
     updateMap: updateMap,
     updateBubbles: updateBubbles,
-	
   };
 }
 
