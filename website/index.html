@@ -38,18 +38,18 @@
 </head>
 
 <style type="text/css">
-  #legend {
-    padding: 1.5em 0 0 1.5em;
+  .datamaps-legend dt{
+    clear: none;
   }
-
-  li.key {
-    border-top-width: 15px;
-    border-top-style: solid;
-    font-size: .75em;
-    width: 10%;
-    padding-left: 0;
-    padding-right: 0;
+  .datamaps-legend {
+    color: black;
+    top: -150px;
+    position: relative;
+    display: inline;
+    text-align: center;
+    padding: 180px;
   }
+}
 </style>
 <body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
 <div class="wrapper">
@@ -181,11 +181,7 @@
           <section class="col-md-8 connectedSortable">
             <div class="box box-solid box-primary" style="background: #dddddd; height:1000px">
               <div class="row">
-                <div id="legend"></div>
                 <div id="mapvis" class="map container-fluid"></div>
-                <!-- <div class="hoverinfo"></div> -->
-                <div class="hoverinfo">
-                </div>
               </div>
     		  
               <div class="row">
@@ -194,6 +190,7 @@
                   <div class="mytooltip"></div>
                 </div>
               </div>
+              
             </div>
           </section>
 
@@ -205,8 +202,8 @@
               <div class="row">
                 <div id='small-wordcloud-vis'></div>
               </div>
-    		      <div id="hoverinfo" class="row"></div>
             </div>
+            <div id="hoverinfo" class="row"></div>
           </section>
         <!-- </div> -->
       </div>

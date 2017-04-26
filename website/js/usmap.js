@@ -25,21 +25,11 @@ function usmap() {
         2: "#ffff00",
         2.2: "#00ffff",
         4: "#0000ff",
-        // bubbleColor: BUBBLE_DEFAULT_FILL
       }
   });
-  gisMap.legend({
-    legendTitle : "Sentiment Color",
-    labels: {
-      defaultFill: "No tweet",
-      0: "Extremely Negative",
-      1.8: "Negative",
-      2: "Neutral",
-      2.2: "Positive",
-      4: "Extremely Positive",
-    }
-  });
 
+  // gisMap.addPlugin("continuousLegend", continuous);
+  // gisMap.continuousLegend();
   // Update the map.
   function updateMap(data) {
   // Color scale.
@@ -65,19 +55,7 @@ function usmap() {
 
 	//   //console.log(data);
     insertRadius(data.tweets_per_state);
-    gisMap.bubbles(data.tweets_per_state,{
-      popupTemplate: function(geography, data){
-        // console.log("hovering " + data.tweets_per_state);
-        // return "<div>test</div>";
-      //   console.log("hovering");
-		    return ['<div class="hoverinfo"><strong>' +  geography.properties.name + '</strong>',
-          '<br/>Total  Tweets: ' +  data.total_num_tweet,
-          '<br/>Total Negative Tweets: ' +  data.total_neg_tweet,
-          '<br/>Total Positive Tweets: ' +  data.total_pos_tweet,
-          '<br/>Total Neutral Tweets: ' +  data.total_neu_tweet,
-          '</div>'].join('');
-         }
-		});
+    gisMap.bubbles(data.tweets_per_state);
     d3.selectAll("circle")
       .style("fill", BUBBLE_DEFAULT_FILL)
       .style("opacity", BUBBLE_DEFAULT_OPACITY)
@@ -117,10 +95,78 @@ function usmap() {
       }
   }
 
+  // add legend
+  gisMap.legend({
+    // legendTitle : "Sentiment Color",
+    labels: {
+      defaultFill: "No tweet",
+      0: "Extremely Negative",
+      1.8: "Negative",
+      2: "Neutral",
+      2.2: "Positive",
+      4: "Extremely Positive",
+    }
+  });
+  // draw legend
+  // function continuous() {
+  //   //Extra scale since the color scale is interpolated
+  //   var colorScale = d3.scale.linear()
+  //                     .domain(SENTIMENT_DOMAIN)
+  //                     .range(SENTIMENT_COLOR_RANGE);
+
+  //   //Calculate the variables for the temp gradient
+  //   var numStops = 10;
+  //   colorRange = colorScale.domain();
+  //   colorRange[2] = colorRange[1] - colorRange[0];
+  //   colorPoint = [];
+  //   for(var i = 0; i < numStops; i++) {
+  //     colorPoint.push(i * colorRange[2]/(numStops-1) + colorRange[0]);
+  //   }//for i
+
+  //   //Create the gradient
+  //   d3.selectAll("div")
+  //     .append("linearGradient")
+  //     .attr("id", "legend")
+  //     .attr("x1", "0%").attr("y1", "0%")
+  //     .attr("x2", "10%").attr("y2", "100%")
+  //     .selectAll("stop") 
+  //     .data(d3.range(numStops))                
+  //     .enter().append("stop") 
+  //     .attr("offset", function(d,i) { 
+  //       return colorScale( colorPoint[i] )/100;
+  //     })   
+  //     .attr("stop-color", function(d,i) { 
+  //       return colorScale( colorPoint[i] ); 
+  //     });
+
+  //   var legendHeight = 200;
+  //   //Color Legend container
+  //   var legendsvg = d3.selectAll("body").append("g")
+  //     .attr("class", "legendWrapper")
+  //     .attr("transform", "translate(" + 20 + "," + 20 + ")");
+
+  //   //Draw the Rectangle
+  //   legendsvg.append("rect")
+  //     .attr("class", "legendRect")
+  //     .attr("x", 0)
+  //     .attr("y", -legendHeight/2)
+  //     //.attr("rx", hexRadius*1.25/2)
+  //     .attr("width", 20)
+  //     .attr("height", legendHeight)
+  //     .style("fill", "url(#legend)");
+      
+  //   //Append title
+  //   // legendsvg.append("text")
+  //   //   .attr("class", "legendTitle")
+  //   //   .attr("x", 0)
+  //   //   .attr("y", -10)
+  //   //   .style("text-anchor", "middle")
+  //   //   .text("Number of Accidents");
+  // }
+
   return {
     updateMap: updateMap,
     updateBubbles: updateBubbles,
-	
   };
 }
 
