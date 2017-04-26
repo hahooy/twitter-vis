@@ -51,6 +51,7 @@ function usmap() {
     }];
   	var layout = {
         title: state,
+        // title: state + "-" + data.total_num_tweet,
         font:{
         family: 'Raleway, sans-serif'
         },
