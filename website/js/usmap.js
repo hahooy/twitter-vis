@@ -34,21 +34,22 @@ function usmap() {
   function hoverMap(data, flag)
   {
 	  if(flag==false) return;
-	  var pos, neg, neu, currDate;
+	  var pos, neg, neu, state;
 	  
 	  pos = data.total_pos_tweet;
 	  neg = data.total_neg_tweet;
 	  neu = data.total_neu_tweet;
-
-	  var state = data.name;
+	  state = data.name;
+	  
 	  var dataforPlot=[ {
 		  x:['Positive','Negative','Neutral'],
 		  y:[pos, neg, neu],
 		  type:'bar',
 		  marker: {
-        color: 'rgb(0, 191, 255)'
+            color: 'rgb(255, 153, 102)'
       }
     }];
+	
   	var layout = {
         title: state,
         // title: state + "-" + data.total_num_tweet,
@@ -57,7 +58,7 @@ function usmap() {
         },
         showlegend: false,
         xaxis: {
-        tickangle: 0
+        tickangle:-45
         },
         yaxis: {
         zeroline: false,
