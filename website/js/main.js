@@ -18,6 +18,7 @@ $(function() {
     var gisMap = usmap();
     // Themeriver.
     var river = themeriver('#themeriver');
+    drawLegend();
     // Query parameters.
     var params = {};
 
@@ -65,7 +66,6 @@ $(function() {
         };
         $("#search-hashtag").easyAutocomplete(options);
     }
-
 
     initVisStatic();
     queryTweets(params); // Initial query.

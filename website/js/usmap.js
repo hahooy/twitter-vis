@@ -70,8 +70,8 @@ function usmap() {
   
   // Update the map.
   function updateMap(data) {
-  // Color scale.
-  var colorScale = d3.scale.linear()
+    // Color scale.
+    var colorScale = d3.scale.linear()
                       .domain(SENTIMENT_DOMAIN)
                       .range(SENTIMENT_COLOR_RANGE);
 
@@ -85,6 +85,7 @@ function usmap() {
     for (var i = 0; i < data.tweets_per_state.length; i++) {
       colors[data.tweets_per_state[i].abbreviation] = colorScale(data.tweets_per_state[i].avg_sentiment);
     }
+    // gisMap.labels(data.abbreviation);
     gisMap.updateChoropleth(colors, {reset: true});
   }
 
@@ -137,19 +138,6 @@ function usmap() {
            data[i].fillKey='bubbleColor';
       }
   }
-
-  // add legend
-  gisMap.legend({
-    // legendTitle : "Sentiment Color",
-    labels: {
-      defaultFill: "No tweet",
-      0: "Extremely Negative",
-      1.8: "Negative",
-      2: "Neutral",
-      2.2: "Positive",
-      4: "Extremely Positive"
-    }
-  });
 
   return {
     updateMap: updateMap,
