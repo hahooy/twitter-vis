@@ -37,38 +37,34 @@ function usmap() {
 	  var pos, neg, neu, currDate;
 	  
 	  pos = data.total_pos_tweet;
-	  neg=data.total_neg_tweet;
-	  neu=data.total_neu_tweet;
+	  neg = data.total_neg_tweet;
+	  neu = data.total_neu_tweet;
+
 	  var state = data.name;
-	  var dataforPlot=[
-	   {
-		  
-		  x:['Positive Tweets','Negative Tweets','Neutral Tweets'],
+	  var dataforPlot=[ {
+		  x:['Positive','Negative','Neutral'],
 		  y:[pos, neg, neu],
 		  type:'bar',
 		  marker: {
-          color: 'rgb(0, 191, 255))'
-          }
-	   }
-	 ];
-	var layout = {
-          title: state,
-          font:{
-          family: 'Raleway, sans-serif'
-		 
-      },
-      showlegend: false,
-      xaxis: {
-      tickangle: 0
-      },
-      yaxis: {
-      zeroline: false,
-      gridwidth: 2
-     },
-     bargap :0.05
-    };
-      
-	Plotly.newPlot('hoverinfo', dataforPlot, layout);  	  
+        color: 'rgb(0, 191, 255)'
+      }
+    }];
+  	var layout = {
+        title: state,
+        font:{
+        family: 'Raleway, sans-serif'
+        },
+        showlegend: false,
+        xaxis: {
+        tickangle: 0
+        },
+        yaxis: {
+        zeroline: false,
+        gridwidth: 2
+       },
+       bargap :0.05
+      };
+  	Plotly.newPlot('hoverinfo', dataforPlot, layout);  	  
   }
   
   // Update the map.
@@ -113,7 +109,7 @@ function usmap() {
       })
       .on("mouseout", function(d) {     
 
-        hoverMap(d, false)	 ; 
+        hoverMap(d, false); 
         d3.select(this)
           .transition()
           .duration(500)
@@ -150,7 +146,7 @@ function usmap() {
       1.8: "Negative",
       2: "Neutral",
       2.2: "Positive",
-      4: "Extremely Positive",
+      4: "Extremely Positive"
     }
   });
 
