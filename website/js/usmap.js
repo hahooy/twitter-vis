@@ -55,7 +55,7 @@ function usmap() {
 	  var dataforPlot=[
 	   {
 		  
-		  x:['Positive','Negative','Neutral'],
+		  x:['Positive Tweets','Negative Tweets','Neutral Tweets'],
 		  y:[pos, neg, neu],
 		  type:'bar',
 		  marker: {
@@ -66,11 +66,12 @@ function usmap() {
 	var layout = {
           title: state,
           font:{
-          family: 'Raleway, snas-serif'
+          family: 'Raleway, sans-serif'
+		 
       },
       showlegend: false,
       xaxis: {
-      tickangle: -45
+      tickangle: 0
       },
       yaxis: {
       zeroline: false,
