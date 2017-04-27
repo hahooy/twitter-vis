@@ -137,6 +137,40 @@ function usmap() {
           }
            data[i].fillKey='bubbleColor';
       }
+      updateCircleLegend(maxTweets);
+  }
+
+  // Add circle legend, reference: https://bl.ocks.org/aubergene/4723857
+  function updateCircleLegend(maxTweets) {
+    var margin = {top: 5, right: 5, bottom: 5, left: 5};
+    var width = 150,
+        height = 150;
+    var legend = d3.select('#circle-legend');
+    // Remove old legend.
+    legend.selectAll('svg').remove();
+    var svg = legend.append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom);
+    // Style the position of the legend.
+    legend.style('left', margin.left + 'px')
+          .style('top', margin.right + 'px');
+
+    var scale = d3.scale.linear()
+            .domain([0, maxTweets])
+            .range([0, 50]);
+
+    var circleKey = circleLegend()
+        .scale(scale)
+        // Return falsey value from tickFormat to remove it
+        .tickFormat(function(d) {
+          return d % 3 == 0 ? d : null
+        });
+
+    svg.append('g')
+      .attr('transform', 'translate(' + width/1.5 + ',' + height/1.5 + ')')
+      //.style("fill", BUBBLE_DEFAULT_FILL)
+      //.style("opacity", BUBBLE_DEFAULT_OPACITY)
+      .call(circleKey);
   }
 
   return {
