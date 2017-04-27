@@ -10,15 +10,14 @@
         });
     }
 
-  function generateBarPlots(data)
-  {
+function generateBarPlots(data)
+{
 	  
-	 var positive = [];
-	 var negative=[];
-	 var neutral = [];
-	 var dates = [];
-	  
-	
+	var positive = [];
+	var negative=[];
+	var neutral = [];
+	var dates = [];
+	  	
 	 data.sort(function(d1,d2){
 		
 		return new Date(d1.date)-new Date(d2.date);
@@ -33,30 +32,25 @@
 		  neutral.push(data[i].neutral_tweets);
 		  
 	  }
-	  
-	  
+
 	//console.log(dates);
 	  var plotPositive = {
 		  x:dates,
 		  y:positive,
 		  type:'bar',
 		  name:'Positive'
-			  
 	  };
-	  
 	  var plotNegative = {
 		  x:dates,
 		  y:negative,
 		  type:'bar',
 		  name:'Negative'
-		  
 	  };
 	   var plotNeutral = {
 		  x:dates,
 		  y:neutral,
 		  type:'bar',
-		  name:'Neutral'
-			  
+		  name:'Neutral'	  
 	  };
 	  
 	  

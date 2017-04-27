@@ -18,18 +18,11 @@ function usmap() {
       width: 900,
       element: document.getElementById('mapvis'),
       geographyConfig: {
-		
-        highlightBorderColor: MAP_BORDER_COLOR
-		
+        highlightBorderColor: MAP_BORDER_COLOR	
       },
       highlightBorderWidth: 5,
       fills: {
         defaultFill: MAP_DEFAULT_FILL,
-        0: "#FF0000",
-        1.8: "#e06c00",
-        2: "#ffff00",
-        2.2: "#00ffff",
-        4: "#0000ff",
       }
   });
 
