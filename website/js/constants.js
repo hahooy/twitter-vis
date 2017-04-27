@@ -1,1 +1,3 @@
 var CIRCLE_LEGEND_WIDTH = 150;
+var SENTIMENT_DOMAIN = [0, 2, 4];
+var SENTIMENT_COLOR_RANGE = ["#FF0000", "#ffffcc", "#0000ff"];
