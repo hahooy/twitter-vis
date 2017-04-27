@@ -130,3 +130,7 @@ hr {
 .content-wrapper {
     background: white;
 }
+
+#circle-legend {
+    position: absolute;
+}

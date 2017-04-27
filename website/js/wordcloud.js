@@ -60,6 +60,9 @@ function wordCloud(selector, width, height) {
         //The outside world will need to call this function, so make it part
         // of the wordCloud return value.
         update: function(words) {
+            if (words == null) {
+                return;
+            }
             // make a copy of the words.
             words = JSON.parse(JSON.stringify(words));
             // Normalize the word sizes to be from 0 to 20% of min(width, height).
