@@ -56,28 +56,28 @@ function drawLegend() {
 		.attr("y", 0)
 		//.attr("rx", hexRadius*1.25/2)
 		.attr("width", legendWidth)
-		.attr("height", 20)
+		.attr("height", 12)
 		.style("fill", "url(#legend-color)");
 	
 	// Append title
 	legendsvg.append("text")
 		.attr("class", "legendTitle")
 		.attr("x", legendWidth/2)
-		.attr("y", 30)
+		.attr("y", 25)
 		.style("text-anchor", "middle")
 		.text("Extremely Positive");
 
 	legendsvg.append("text")
 		.attr("class", "legendTitle")
 		.attr("x", 0)
-		.attr("y", 30)
+		.attr("y", 25)
 		.style("text-anchor", "middle")
 		.text("Neutral");
 
 	legendsvg.append("text")
 		.attr("class", "legendTitle")
 		.attr("x", -legendWidth/2)
-		.attr("y", 30)
+		.attr("y", 25)
 		.style("text-anchor", "middle")
 		.text("Extremely Negative");
 }
