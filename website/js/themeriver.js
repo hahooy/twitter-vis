@@ -111,7 +111,7 @@ function themeriver(selector) {
         var xScale = d3v4.scaleBand().range([margin.left, graphWidth + margin.left]).domain(availableDates);
         var yScale = d3v4.scaleLinear().range([graphHeight + margin.top, margin.top]).domain([-maxTotal/2, maxTotal/2]);
         var yAxisScale = d3v4.scaleLinear().range([graphHeight + margin.top, margin.top]).domain([0, maxTotal]);
-        var colorScale = d3v4.scaleOrdinal().range(colorScheme);
+        var colorScale = d3v4.scaleOrdinal(ORDINAL_COLORS);
         var xAxis = d3v4.axisBottom(xScale);
         var yAxis = d3v4.axisLeft(yAxisScale).ticks(1);
         var tooltip = d3v4.select(selector + ' > div.mytooltip');

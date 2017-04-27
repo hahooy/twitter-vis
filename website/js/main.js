@@ -30,7 +30,13 @@ $(function() {
             console.log(data);
             river.update(data, 0, renderData);
             renderData(data[river.getCurrentDate()]);
-			
+        });
+    }
+
+    // Query summary.
+    function getSummary() {
+        $.get(summaryURL).done(function(data) {
+            data = JSON.parse(data);
         });
     }
   

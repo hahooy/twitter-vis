@@ -110,8 +110,7 @@ function usmap() {
         wordcloud.update(d.hashtags);
 		
       })
-      .on("mouseout", function(d) {     
-
+      .on("mouseout", function(d) {
         hoverMap(d, false); 
         d3.select(this)
           .transition()

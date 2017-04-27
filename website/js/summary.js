@@ -1,9 +1,9 @@
  $(function() {
-     var baseURL = "https://twitter-vis-site.tk:8000/twitter_vis/tweets_summary/";
+     
 
      function drawSummaryGraphs() {
          // Query data and render.
-         $.get(baseURL).done(function(data) {
+         $.get(summaryURL).done(function(data) {
              data = JSON.parse(data);
              //console.log(data.tweet_timeline);
              generateTimeLineGraph(data.tweet_timeline);
@@ -24,8 +24,7 @@
          });
 
          for (var i = 0; i < data.length; i++) {
-             dates.push(new Date(data[i].date));
-
+             dates.push(data[i].date);
              positive.push(data[i].positive_tweets);
              negative.push(data[i].negative_tweets);
              neutral.push(data[i].neutral_tweets);
