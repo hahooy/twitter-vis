@@ -179,7 +179,7 @@
       <!-- <div  class="container-fluid small-margin-container">  -->
         <div class="row box"  style="border-spacing: 10px">
           <section class="col-md-8 connectedSortable">
-            <div class="box box-solid box-primary" style="background: #dddddd; height:800px">
+            <div class="box box-solid box-primary" style="background: #ffffff; height:800px">
               <div class="row">
                 <div id="legend"></div>
                 <div id="mapvis" class="map container-fluid"></div>
@@ -187,7 +187,7 @@
               <div class="row">
                 <div id="themeriver" class="map container-fluid">
                   <div class="vBar"></div>
-                  <div class="mytooltip" ></div>
+                  <div class="mytooltip"><p></p></div>
                 </div>
               </div>
               
@@ -196,22 +196,18 @@
           </section>
 
           <section class="col-md-4 connectedSortable">
-            <div class="box box-solid box-info" style="background: #dddddd">
+            <div class="box box-solid box-info" style="background: #ffffff">
               <div class="row" style="margin-left:30px;">
                 <input id="search-hashtag" autocomplete="off" />
               </div>
               <div class="row">
-                <div id='small-wordcloud-vis' style = "margin-left: 30px; height: 400px"></div>
+                <div id='small-wordcloud-vis' style = "margin-left: 30px; height: 300px"></div>
 				
               </div>
             </div>
-      			<div class="box box-solid box-info" style="background: #dddddd">
-
-   			   <div id="hoverinfo" class ="row" style="height:400px; width: 350px; margin-left:10px; margin-bottom:30px; "></div>
-
-      			  
-
-      			</div>
+      			<div class="box box-solid box-info" style="background: #ffffff">
+     			    <div id="hoverinfo" class ="row" style="height:400px; width: 350px; margin: 0 auto; margin-top: -20px; margin-bottom: 20px"></div>
+        		</div>
           </section>
         <!-- </div> -->
       </div>
@@ -239,34 +235,57 @@
       </section>
 
       <section class="content">
-        <div class="row box" style="background: #dddddd">
+        <div class="row box" >
           <section class="col-md-12 connectedSortable">
             <h3 class="content-header"><b><u>Summary</u></b></h3>
             <p>From our summary visualizations, we can see that people in United States tweeted the most during the weekend, with number of tweets fluctuating during weekdays but people tweeted the least on Thursday. This makes sense since most events occurred on weekends and people tweeted or posted on social media about the events right after the event over the weekend and some at the beginning of the week.</p>
 
-            <p>About 75% of the tweets have neutral sentiments, and positive tweets were found to be more prevalent than negative tweets, which is wonderful to see, especially when people often say social media is becoming toxic. However, there is no specific pattern of positive tweets such as weekends being more positive, and we believe that the sentiment of the tweets depend more on the events instead of the days.
+            <p>About 75% of the tweets have neutral sentiments, and positive tweets were found to be more prevalent than negative tweets, which is wonderful to see, especially when people sometimes say social media is becoming toxic. However, there is no specific pattern of tweets such as weekends being more positive, and we believe that the sentiment of the tweets depend more on the events happening instead of the days.
             </p>
+
+            <p>From our detailed analysis of state-by-state tweets, we found that California and New York are the states where most tweets come from. Florida is the third state and Texas is the fourth, where most twitter users are.</p>
+
+            <p>For most days, the average sentiment of the states are between neutral and positive. Only a few states have changes throughout those days, and Wyoming was the only one which has most changes such as it being the most neutral state all over the United States on April 12 and then becoming the most positive state on April 13. The most used hashtag on April 13 was '#jacksonhole' and we found that there was a special music event that played Mozart's first masterpiece on that day in Jackson Hole.</p>
+
+            <p>On 14th and 16th, we found the states to have more positive tweets compared to other days. On Friday, April 14th, we found that "#goodfriday" was one of the most used hashtags, and we can see why there were more positive tweets on April 14th. We also found more positive sentiment tweets on April 16th and the most popular topics for that day were '#happyeaster' and '#easter'.
+            </p>
+
             <!-- April 12 - columnbus - john mayer -->
+<<<<<<< HEAD
             <h3 class="content-header"><b><u>Hypothesis Answers</u></b></h3>
             <p><b>Q1: How many people are tweeting in different states depending on time?</b></br>
+=======
+            <h3 class="content-header"><b>Hypothesis Answers</b></h3>
+            <p><b>Q1: How many people are tweeting in different states depending on day?</b></br>
+>>>>>>> b1dfcc85082a85e7bfe5fb3cb832808a768a6232
             As we've speculated, people tweeted the most during the weekend all over the United States, with the highest numbers coming from California and New York, followed by Florida and then Texas.</p>
 
             <p><b>Q2: What are the trending topics on twitter?</b></br>
-            As we've speculated, people tweeted the most during the weekend all over the United States, with the highest numbers coming from California and New York, followed by Florida and then Texas.</p>
+            '#traffic' was the most popular topic during the weekdays, and disappeared over the weekend as people seemed to be more focused on other occasions, as we can see other hashtags such as '#easter'. We can also see the trend of people posting more '#photos' over the weekend, which are most likely to be the pictures taken at the special occasions over the weekend.
+            </p>
+
+            <p><b>Q3: Are there sentiment value differences based on different states in the United States?</b></br>
+            We did not find any sentiment value differences based on the states, but the sentiment values depend on the events happening in the area. 
+            </p>
           </section>
         </div>
       </section>
     </div>
 
   <!-- progress book -->
+<<<<<<< HEAD
   
     <div id="progress-book" class="container-fluid">
+=======
+    <div id="progress-book">
+>>>>>>> b1dfcc85082a85e7bfe5fb3cb832808a768a6232
       <section class="content-header">
         <h1>
           
           <center>Process Book</center>
         </h1>
       </section>
+<<<<<<< HEAD
 	  <hr size="4">
       <div>
         <h3 class="content-header"><b><u>Overview and Motivation</u></b></h3>
@@ -366,28 +385,79 @@ most. Whereas for other days, the sentiment for the states was pretty much betwe
       </div>
 	  
       <div id="contact" class="container-fluid ">
+=======
+      <section class="content">
+        <div class="row box">
+          <section class="col-md-12 connectedSortable">
+            <h3 class="content-header"><b>Overview and Motivation</b></h3>
+            <p>Social networks have changed the way people communicate with each other. Today the world is a lot more connected than it was before. People are also more open towards voicing their opinions regarding issues of their interests. These issues can be related to sports, careers, politics, art, etc. 
+            </br></br>
+
+            Social network websites like Twitter and Facebook provide  great resources to learn about the preferences and interests of people in different demographics. Based on those interests and preferences, it’s easy to know about the sentiments and the location of the people. The data collected from these social networking websites is mostly in the form of raw text, but based on the context it’s easy to know the sentiments and opinions of people residing in different demographics. Our goal for the project is to gather, group and analyze such text data and provide meaningful insights in the form of visualizations. 
+            </br></br>
+
+            For our project we have decided to work with twitter data which was collected for over a week. Tweets are complex and have many different attributes. It would be very interesting to visualize such data and discover any patterns in terms of how people tweet, where they tweet and when they tweet.
+            </p>
+
+            <h3 class="content-header"><b>Related Work</b></h3>
+
+            <h3 class="content-header"><b>Questions</b></h3>
+            <p><b>1. How many people are tweeting in different states depending on time?</br>
+              2. What are the trending topics on twitter?</br>
+              3. Are there sentiment value differences based on different states in United States?
+            </b></p>
+            <p>
+            By using the visualizations for twitter data, we can learn a summary of situations happening throughout the country as well as how twitter users feel on these situations from the state-by-state sentiment analysis. Also, we can learn the times when twitter users most used and least used based on time of the day in different states.
+            </br></br>
+
+            These visualizations can highly benefit companies as they can learn the time most twitter users are active, things people are interested, etc., and answer the questions for whom they should advertise their products, when and where, etc. These can also give information to anyone who are interested in learning what’s happening on twitter in a minute.
+            </p>
+
+            <h3 class="content-header"><b>Data</b></h3>
+            <p><b>Source</b>: The twitter data comes from a project of the cse530s class. A script has been implemented to programmatically stream tweets from twitter streaming APIs. Approximately 1 million tweets have been downloaded for over a week. We plan to use the same script to stream the data for a longer period of time because we want to visualize its time dependence. We will also need county and state boundary data to do GIS visualization for the tweets. This data is also from cse530s class and it is downloaded from NHGIS. </br></br>
+              
+            <b>Scrapting Method</b>:</br></br>
+            <b>Data Cleanup</b>:
+            </p>
+
+            <h3 class="content-header"><b>Exploratory Data Analysis</b></h3>
+            <h3 class="content-header"><b>Design Evolution</b></h3>
+            <h3 class="content-header"><b>Implementation</b></h3>
+            <h3 class="content-header"><b>Evaluation</b></h3>
+          </section>
+        </div>
+      </section>
+      
+      <div id="contact"">
+>>>>>>> b1dfcc85082a85e7bfe5fb3cb832808a768a6232
         <section class="content-header">
           <h1>
            
            <center>Contact</center>
           </h1>
         </section>
+<<<<<<< HEAD
 		<hr size ="4">
         <div>
           <div class="row" style="background: #dddddd">
             <div class="col-md-4">
+=======
+        <section class="content" style="height: 100px">
+          <div class="row box">
+            <div class="col-md-4 connectedSortable">
+>>>>>>> b1dfcc85082a85e7bfe5fb3cb832808a768a6232
               <h3>Wint Yee Hnin</h3>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 connectedSortable">
               <h3>Yongzheng Huang</h3>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 connectedSortable">
               <h3>Krushnaraj Kamtekar</h3>
             </div>
           </div>
-
-        </div>
+        </section>
       </div>
+
     </div>
   </div>
 </div>
@@ -431,7 +501,8 @@ most. Whereas for other days, the sentiment for the states was pretty much betwe
 <script src="js/mapslider.js"></script>
 <!-- App logic js -->
 <script src="js/main.js"></script>
-<script src="legend.js"></script>
+<!-- Legend for sentiment color -->
+<script src="js/legend.js"></script>
 
 <!-- summary page scripts -->
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> -->

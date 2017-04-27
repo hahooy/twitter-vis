@@ -1,7 +1,10 @@
 function usmap() {
   // Constants.
-  var SENTIMENT_DOMAIN = [0, 1.8, 2, 2.2, 4];
-  var SENTIMENT_COLOR_RANGE = ["#FF0000", "#e06c00", "#ffff00", "#00ffff", "#0000ff"];
+  // var SENTIMENT_DOMAIN = [0, 1.8, 2, 2.2, 4];
+  // var SENTIMENT_COLOR_RANGE = ["#FF0000", "#e06c00", "#ffff00", "#00ffff", "#0000ff"];
+
+  var SENTIMENT_DOMAIN = [0, 2, 4];
+  var SENTIMENT_COLOR_RANGE = ["#FF0000", "#ffffcc", "#0000ff"];
   var MAP_DEFAULT_FILL = "#d7d7d7";
   var MAP_BORDER_COLOR = "#ffc1b1";
   var BUBBLE_DEFAULT_FILL = "#272D2D";
@@ -52,6 +55,7 @@ function usmap() {
 	
   	var layout = {
         title: state,
+        // title: state + "-" + data.total_num_tweet,
         font:{
         family: 'Raleway, sans-serif'
         },
