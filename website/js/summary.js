@@ -79,7 +79,8 @@
 
          var layout = {
              title: 'Total Tweets comparison',
-             barmode: 'group'
+             barmode: 'group',
+             width: 750,
          };
 
 

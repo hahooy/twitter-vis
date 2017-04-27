@@ -66,7 +66,7 @@ $(function() {
                     queryTweets(params);
                 }
             },
-            placeholder: "choose a hashtag",
+            placeholder: "type a hashtag",
             requestDelay: 500,
             theme: "square"
         };

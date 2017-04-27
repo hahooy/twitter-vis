@@ -134,3 +134,9 @@ hr {
 #circle-legend {
     position: absolute;
 }
+
+input.search-bar {
+  background-image: url("../images/icon_search.png");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
