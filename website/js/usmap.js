@@ -147,8 +147,8 @@ function usmap() {
   // Add circle legend, reference: https://bl.ocks.org/aubergene/4723857
   function updateCircleLegend(maxTweets) {
     var margin = {top: 5, right: 5, bottom: 5, left: 5};
-    var width = 150,
-        height = 150;
+    var width = CIRCLE_LEGEND_WIDTH,
+        height = CIRCLE_LEGEND_WIDTH;
     var legend = d3.select('#circle-legend');
     // Remove old legend.
     legend.selectAll('svg').remove();
@@ -172,8 +172,6 @@ function usmap() {
 
     svg.append('g')
       .attr('transform', 'translate(' + width/1.5 + ',' + height/1.5 + ')')
-      //.style("fill", BUBBLE_DEFAULT_FILL)
-      //.style("opacity", BUBBLE_DEFAULT_OPACITY)
       .call(circleKey);
   }
 

@@ -1,0 +1,1 @@
+var CIRCLE_LEGEND_WIDTH = 150;
