@@ -93,7 +93,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="#"><i class="fa fa-circle-o"></i>Data Summary</a></li>
+            <li class="active"><a href="#summary"><i class="fa fa-circle-o"></i>Data Summary</a></li>
             <li><a href="#map"><i class="fa fa-circle-o"></i>Map</a></li>
 <!--             <li><a href="#wordcloud"><i class="fa fa-circle-o"></i>Word Cloud</a></li>
  -->          </ul>
@@ -131,7 +131,7 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div id="summary" class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -141,29 +141,31 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
-      <!-- /.row -->
-      <!-- Main row -->
-      <div class="row box" style="border-spacing: 10px">
-        <!-- Left col -->
-        <section class="col-lg-7 connectedSortable">
-          <!-- Custom tabs (Charts with tabs)-->
-          <div class="nav-tabs-custom">
-            <div class="box box-solid box-primary" id="barChart" style="height: 500px; width: 100%; background: #ffffff; border: 0px solid"> </div>
+    <div class="container-fluid">
+        <section class="content">
+          <!-- /.row -->
+          <!-- Main row -->
+          <div class="row box" style="border-spacing: 10px">
+            <!-- Left col -->
+            <section class="col-lg-7 connectedSortable">
+              <!-- Custom tabs (Charts with tabs)-->
+              <div class="nav-tabs-custom">
+                <div class="box box-solid box-primary" id="barChart" style="height: 500px; width: 100%; background: #ffffff; border: 0px solid"> </div>
+              </div>
+            </section>
+
+            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col-lg-5 connectedSortable">
+              <div class="box box-solid box-primary" id="timeline" style="height:500px; background: #ffffff; border: 0px solid"> </div>
+              <!-- /.box -->
+            </section>
+            <!-- right col -->
           </div>
+          <!-- /.row (main row) -->
         </section>
+    </div>
 
-        <!-- right col (We are only adding the ID to make the widgets sortable)-->
-        <section class="col-lg-5 connectedSortable">
-          <div class="box box-solid box-primary" id="timeline" style="height:500px; background: #ffffff; border: 0px solid"> </div>
-          <!-- /.box -->
-        </section>
-        <!-- right col -->
-      </div>
-      <!-- /.row (main row) -->
-    </section>
-
-    <div id="map">
+    <div id="map" class="container-fluid">
  <!--      <div class="container big-margin-container">
         <h2>Map</h2>
         <hr>
@@ -227,7 +229,7 @@
   </div> -->
 
   <!-- results -->
-    <div id="results">
+    <div id="results" class="container-fluid ">
       <section class="content-header">
         <h1>
           
