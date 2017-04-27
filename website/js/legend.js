@@ -1,7 +1,10 @@
 function drawLegend() {
 	/** based from http://bl.ocks.org/nbremer/62cf60e116ae821c06602793d265eaf6 **/
-	var SENTIMENT_DOMAIN = [0, 1.8, 2, 2.2, 4];
-	var SENTIMENT_COLOR_RANGE = ["#FF0000", "#e06c00", "#ffff00", "#00ffff", "#0000ff"];
+	// var SENTIMENT_DOMAIN = [0, 1.8, 2, 2.2, 4];
+	// var SENTIMENT_COLOR_RANGE = ["#FF0000", "#e06c00", "#ffff00", "#00ffff", "#0000ff"];
+
+	  var SENTIMENT_DOMAIN = [0, 2, 4];
+  var SENTIMENT_COLOR_RANGE = ["#FF0000", "#ffffcc", "#0000ff"];
 
   	//Extra scale since the color scale is interpolated
 	var countScale = d3.scale.linear()
