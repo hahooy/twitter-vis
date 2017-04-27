@@ -6,7 +6,7 @@ $(function() {
     var hashtagURL = "top_hashtags/";
 
     // UI variables.
-    var smallWCWidth = 400;
+    var smallWCWidth = 350;
     var smallWCHeight = 300;
     var largeWCWidth = 1000;
     var largeWCHeight = 300;

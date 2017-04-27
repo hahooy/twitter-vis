@@ -10,49 +10,47 @@
         });
     }
 
-  function generateBarPlots(data)
-  {
+function generateBarPlots(data)
+{
 	  
-	 var positive = [];
-	 var negative=[];
-	 var neutral = [];
-	 var dates = [];
+	var positive = [];
+	var negative=[];
+	var neutral = [];
+	var dates = [];
+	  	
+	 data.sort(function(d1,d2){
+		
+		return new Date(d1.date)-new Date(d2.date);
+	});
 	  
 	  for(var i =0;i<data.length;i++)
 	  {
 		  dates.push(new Date(data[i].date));
+		 
 		  positive.push(data[i].positive_tweets);
 		  negative.push(data[i].negative_tweets);
 		  neutral.push(data[i].neutral_tweets);
 		  
 	  }
-	  
-	  dates.sort(function(d1,d2){
-		
-		return d1-d2;
-	});
+
 	//console.log(dates);
 	  var plotPositive = {
 		  x:dates,
 		  y:positive,
 		  type:'bar',
 		  name:'Positive'
-			  
 	  };
-	  
 	  var plotNegative = {
 		  x:dates,
 		  y:negative,
 		  type:'bar',
 		  name:'Negative'
-		  
 	  };
 	   var plotNeutral = {
 		  x:dates,
 		  y:neutral,
 		  type:'bar',
-		  name:'Neutral'
-			  
+		  name:'Neutral'	  
 	  };
 	  
 	  
@@ -84,7 +82,7 @@
 		
 		return new Date(d1[0])-new Date(d2[0]);
 	});
-	console.log(dataLineGraph);
+	//console.log(dataLineGraph);
 	
     new Dygraph(
         document.getElementById("timeline"),
@@ -93,8 +91,7 @@
 		title:'Tweets Per Day',
         drawPoints: true,
 		showRangeSelector: true,
-        xlabel: 'Day',
-        ylabel: 'Tweets',		
+       
         legend: 'always',
 		labels :['Days','Tweets'],
 		axes:{
@@ -103,12 +100,10 @@
 				axisLabelWidth: 30,
 				pixelsPerLabel: 30,
 				axisLabelFontSize: 10,
-		
-  drawGrid: false,
-  drawAxis: true
- 
-  
-			}
+
+                drawGrid: false,
+                drawAxis: true
+ 			}
 			
 		}
 		

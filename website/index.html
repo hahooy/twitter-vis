@@ -135,8 +135,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Twitter Analysis
-        <small>Dataset Summary</small>
+       
+        <center>Dataset Summary</center>
       </h1>
     </section>
 
@@ -170,8 +170,8 @@
       </div> -->
       <section class="content-header">
         <h1>
-          Twitter Analysis
-          <small>Map</small>
+         
+          <center>Map</center>
         </h1>
       </section>
 
@@ -230,15 +230,15 @@
     <div id="results">
       <section class="content-header">
         <h1>
-          Twitter Analysis
-          <small>Results</small>
+          
+          <center>Results</center>
         </h1>
       </section>
 
       <section class="content">
         <div class="row box" >
           <section class="col-md-12 connectedSortable">
-            <h3 class="content-header"><b>Summary</b></h3>
+            <h3 class="content-header"><b><u>Summary</u></b></h3>
             <p>From our summary visualizations, we can see that people in United States tweeted the most during the weekend, with number of tweets fluctuating during weekdays but people tweeted the least on Thursday. This makes sense since most events occurred on weekends and people tweeted or posted on social media about the events right after the event over the weekend and some at the beginning of the week.</p>
 
             <p>About 75% of the tweets have neutral sentiments, and positive tweets were found to be more prevalent than negative tweets, which is wonderful to see, especially when people sometimes say social media is becoming toxic. However, there is no specific pattern of tweets such as weekends being more positive, and we believe that the sentiment of the tweets depend more on the events happening instead of the days.
@@ -269,32 +269,55 @@
     </div>
 
   <!-- progress book -->
-    <div id="progress-book">
       <section class="content-header">
         <h1>
-          Twitter Analysis
-          <small>Process Book</small>
+          <center>Process Book</center>
         </h1>
       </section>
+      <hr size="4">
       <section class="content">
-        <div class="row box">
+        <div class="row box" >
           <section class="col-md-12 connectedSortable">
-            <h3 class="content-header"><b>Overview and Motivation</b></h3>
-            <p>Social networks have changed the way people communicate with each other. Today the world is a lot more connected than it was before. People are also more open towards voicing their opinions regarding issues of their interests. These issues can be related to sports, careers, politics, art, etc. 
-            </br></br>
 
-            Social network websites like Twitter and Facebook provide  great resources to learn about the preferences and interests of people in different demographics. Based on those interests and preferences, it’s easy to know about the sentiments and the location of the people. The data collected from these social networking websites is mostly in the form of raw text, but based on the context it’s easy to know the sentiments and opinions of people residing in different demographics. Our goal for the project is to gather, group and analyze such text data and provide meaningful insights in the form of visualizations. 
-            </br></br>
-
-            For our project we have decided to work with twitter data which was collected for over a week. Tweets are complex and have many different attributes. It would be very interesting to visualize such data and discover any patterns in terms of how people tweet, where they tweet and when they tweet.
-            </p>
-
-            <h3 class="content-header"><b>Related Work</b></h3>
-
-            <h3 class="content-header"><b>Questions</b></h3>
-            <p><b>1. How many people are tweeting in different states depending on time?</br>
+            <h3 class="content-header"><b><u>Overview and Motivation</u></b></h3>
+            <p>Social networks have changed the way people communicate with each other. Today the world is
+            lot more connected than it was before. People are also more open towards voicing their
+            opinions regarding issues of their interests. These issues can be related to sports, careers,
+            politics, art etc.</p>
+            <p>
+            Social network websites like Twitter and Facebook provide great resources to learn about the
+            preferences and interests of people in different demographics. Based on those interests and
+            preferences, it’s easy to know about the sentiments and the location of the people. The data
+            collected from these social networking websites is mostly in the form of raw text, but based on
+            the context it’s easy to know the sentiments and opinions of people residing in different
+            demographics. Our goal for the project is to gather, group and analyze such text data and
+            provide meaningful insights in the form of visualizations.</p>
+            <p>
+            For our project we have decided to work with twitter data which was collected for over a week.
+            Tweets are complex and have many different attributes. It would be very interesting to visualize
+            such data and discover any patterns in terms of how people tweet, where they tweet and when
+            they tweet. </p>
+            
+            <h3 class="content-header"><b><u>Related Work</u></b></h3>
+            <p>
+            We worked with a lot of numerical data during the class homework assignments, but never
+            worked with text data. We felt that using the text data for our project would also give us the
+            opportunity to think outside the box and come up with visualizations that draw meaningful
+            insights on the underlying dataset. Also, since everyone uses social media, we felt that the text
+            data gives us to have a larger target audience. Our main goal is to develop a tool which can be
+            used by people of all age groups.</p>
+            <p>
+            Visualizations are often used to understand the data on social media. For example,<strong>
+            https://www.csc2.ncsu.edu/faculty/healey/tweet_viz/tweet_app/.</strong> This website can give a sense
+            of people’s opinions on current events. We also would like to create visualizations which will
+            help data make sense for people of all age groups and connect the data with the events and
+            provide a bigger picture for everyone.</p>
+            <h3 class="content-header"><b><u>Questions</u></b></h3>
+            <p><b>1. How many people are tweeting in different states depending on day?</br>
               2. What are the trending topics on twitter?</br>
-              3. Are there sentiment value differences based on different states in United States?
+              3. Are there sentiment value differences based on different states in United States?</br>
+    		      4. How does the sentiment value vary across different states for different days?</br>
+    		      5. Is it possible to identify any hidden trends or pattern in the text?
             </b></p>
             <p>
             By using the visualizations for twitter data, we can learn a summary of situations happening throughout the country as well as how twitter users feel on these situations from the state-by-state sentiment analysis. Also, we can learn the times when twitter users most used and least used based on time of the day in different states.
@@ -303,38 +326,69 @@
             These visualizations can highly benefit companies as they can learn the time most twitter users are active, things people are interested, etc., and answer the questions for whom they should advertise their products, when and where, etc. These can also give information to anyone who are interested in learning what’s happening on twitter in a minute.
             </p>
 
-            <h3 class="content-header"><b>Data</b></h3>
+            <h3 class="content-header"><b><u>Data</u></b></h3>
+  		      <p>
+            The twitter data comes from a project of the cse530s class. A script has been implemented to
+            programmatically stream tweets from twitter streaming APIs. Approximately 1 million tweets
+            have been downloaded for over a week. We are streaming more tweets from twitter and hope to
+            discover more interesting results. To process the data, we implemented scripts to extract
+            hashtags from the tweets. To find meaningful features, we also leveraged database and SQL
+            queries to filter and aggregate the tweets.</p>
+            <p>Links:
+            Twitter Streaming API: https://dev.twitter.com/streaming/overview
+            NHGIS: https://www.nhgis.org/</p>
             <p><b>Source</b>: The twitter data comes from a project of the cse530s class. A script has been implemented to programmatically stream tweets from twitter streaming APIs. Approximately 1 million tweets have been downloaded for over a week. We plan to use the same script to stream the data for a longer period of time because we want to visualize its time dependence. We will also need county and state boundary data to do GIS visualization for the tweets. This data is also from cse530s class and it is downloaded from NHGIS. </br></br>
-              
-            <b>Scrapting Method</b>:</br></br>
-            <b>Data Cleanup</b>:
             </p>
 
-            <h3 class="content-header"><b>Exploratory Data Analysis</b></h3>
-            <h3 class="content-header"><b>Design Evolution</b></h3>
-            <h3 class="content-header"><b>Implementation</b></h3>
-            <h3 class="content-header"><b>Evaluation</b></h3>
+            <h3 class="content-header"><b><u>Exploratory Data Analysis</u></b></h3>
+        		<p>Initialliy we decided to use D3 Datamap with bubbles, where the size of the bubble represents the number of tweets and the color of the states represent the sentiment for that state. We also decided to provide a timeline feature, where the user can filter the map based on the date. Later we replaced the date slider with a themeriver which displays how the tweets changes based on a particular hashtag. The benefits of this helps in identifying peaks in the number of tweets based on the particular hashtags. For ex: there is a peak in the themeriver for Easter day 2017-04-16.</p>
+        		<p>The user can interact with the visualization based on several preferences like the map, the bubbles, the themeriver and the search box. We also added a histogram which displays the number of positive, negative and neutral tweets when hovered over a particular state. The map, themeriver, the word clouds and the bar plots are bound to each other. This gives the user more freedom to narrow down the visualization based on his/her preference.</p>
+  		
+            <h3 class="content-header"><b><u>Design Evolution</u></b></h3>
+  		      <p>
+        		We have kept the same design layout as the one mentioned in the proposal. We were planning to
+            implement a dashboard with 3 pages in total. The first page would provides the summary
+            of the project, the second the map visualization and the third implementing the world clouds.
+            Later we reduced the number of pages to 2 as we decided to include the map and the word cloud on the same page. We decided
+            to remove it, because we felt having the map bound to the word cloud would help the user to interact with the map and
+            the word cloud at the same time.
+            </p>
+          
+            <h3 class="content-header"><b><u>Implementation</u></b></h3>
+        		<p>
+        		We managed to implement all the features discussed in the first presentation. We did make a few changes along the way, but that was mainly to improve the user experience. We used D3, HTML, Javascript, CSS and Python to build our dashboard. For the Datamap the color of the state will represent the sentiment for that state and the size of the bubble will represent the number of tweets. When the user hovers over the bubble a histogram will be generated which displays the number of positive, negative and neutral tweets along with a word cloud for that state. The user also has the options to search for a particular hashtag in the search box. Our initial challenge was to reduce the response time required to generate the dynamic visualization. This helps the user to stay engaged with the dashboard. Later we also decided to implement a uniform color scheme for the whole dashboard which includes the summary page, the map, themeriver and histogram. We also added a results page and a process book to document our findings and learning experience from the project
+            </p>
+          
+            <h3 class="content-header"><b><u>Evaluation</u></b></h3>
+  		      <p>
+            From the map visualization developed so far, we have seen a change in the sentiment for each
+            state. For ex: on Easter's day (04/16) people seem to be in a more happy mood. It was also the day when people tweeted the
+            most. Whereas for other days, the sentiment for the states was pretty much between neutral and positive. Also, we found out that California and Texas were the two states which tweeted the most during that week. 
+            </p>
           </section>
         </div>
       </section>
-      
-      <div id="contact"">
+	  
+      <div id="contact" class="container-fluid ">
+
         <section class="content-header">
           <h1>
-            Twitter Analysis
-            <small>Contact</small>
+           
+           <center>Contact</center>
           </h1>
         </section>
+		    <hr size ="4">
+
         <section class="content" style="height: 100px">
           <div class="row box">
             <div class="col-md-4 connectedSortable">
-              <h3>Wint Yee Hnin</h3>
+              <h3 style="text-align: center">Wint Yee Hnin</h3>
             </div>
             <div class="col-md-4 connectedSortable">
-              <h3>Yongzheng Huang</h3>
+              <h3 style="text-align: center">Yongzheng Huang</h3>
             </div>
             <div class="col-md-4 connectedSortable">
-              <h3>Krushnaraj Kamtekar</h3>
+              <h3 style="text-align: center">Krushnaraj Kamtekar</h3>
             </div>
           </div>
         </section>
