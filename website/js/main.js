@@ -8,8 +8,6 @@ $(function() {
     // UI variables.
     var smallWCWidth = 350;
     var smallWCHeight = 300;
-    var largeWCWidth = 1000;
-    var largeWCHeight = 300;
 
     //Create a new instance of the word cloud visualisation.
     var smallWordCloud = wordCloud('#small-wordcloud-vis', smallWCWidth, smallWCHeight);
