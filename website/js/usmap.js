@@ -38,11 +38,15 @@ function usmap() {
 	  state = data.name;
 	  
 	  var dataforPlot=[ {
-		  x:['Positive','Negative','Neutral'],
-		  y:[pos, neg, neu],
+		  x:['Negative','Neutral', 'Positive'],
+		  y:[neg, neu, pos],
 		  type:'bar',
 		  marker: {
-            color: 'rgb(255, 153, 102)'
+            color: SENTIMENT_COLOR_RANGE,
+            line: {
+                     color: 'rgba(0,0,0,1.0)',
+                     width: 1
+                 }
       }
     }];
 	
