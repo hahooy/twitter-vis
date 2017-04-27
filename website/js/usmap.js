@@ -27,9 +27,8 @@ function usmap() {
   });
 
   //Bubble hover
-  function hoverMap(data, flag)
+  function hoverMap(data)
   {
-	  if(flag==false) return;
 	  var pos, neg, neu, state;
 	  
 	  pos = data.total_pos_tweet;
@@ -92,16 +91,14 @@ function usmap() {
 
   // Create bubbles.
   function updateBubbles(data, wordcloud) {
-
-	//   //console.log(data);
     insertRadius(data.tweets_per_state);
     gisMap.bubbles( data.tweets_per_state);
+    hoverMap(data.tweets_all_states);
     d3.selectAll("circle")
       .style("fill", BUBBLE_DEFAULT_FILL)
       .style("opacity", BUBBLE_DEFAULT_OPACITY)
       .on("mouseover", function(d) {
-        hoverMap(d, true);		
-		
+        hoverMap(d);
         d3.select(this)
           .transition()
           .duration(500)
@@ -111,7 +108,7 @@ function usmap() {
 		
       })
       .on("mouseout", function(d) {
-        hoverMap(d, false); 
+        hoverMap(data.tweets_all_states);
         d3.select(this)
           .transition()
           .duration(500)

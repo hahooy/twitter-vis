@@ -187,6 +187,18 @@ def tweets_states(request):
                                     sum([Counter({h['text']: h['size']}) \
                                             for t in ret_per_date['tweets_per_state'] \
                                             for h in t['hashtags']], Counter()).most_common()[:40]]
+        # Compute the total number of positive, negative and neutral tweets for the whole country.
+        ret_per_date['tweets_all_states'] = {
+            'total_neg_tweet': 0,
+            'total_neu_tweet': 0,
+            'total_pos_tweet': 0,
+            'name': 'US'
+        }
+        for t in ret_per_date['tweets_per_state']:
+            ret_per_date['tweets_all_states']['total_neg_tweet'] += t['total_neg_tweet']
+            ret_per_date['tweets_all_states']['total_neu_tweet'] += t['total_neu_tweet']
+            ret_per_date['tweets_all_states']['total_pos_tweet'] += t['total_pos_tweet']
+
     print end - start
     res = HttpResponse(json.dumps(ret))
     return res
