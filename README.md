@@ -2,7 +2,7 @@
 
 ## How to access the site
 
-The link to the website is [https://washuvis.github.io/twitter/website/](https://washuvis.github.io/twitter/website/)
+The link to the website is [https://hahooy.github.io/twitter-vis/website/](https://hahooy.github.io/twitter-vis/website/)
 
 
 

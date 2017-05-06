@@ -9,3 +9,4 @@ twitter_env
 *.csv
 data/data/*
 twitter.sql
+.DS_Store
