@@ -135,7 +135,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 # Redirect http to https
 # SECURE_SSL_REDIRECT = True
 
-ALLOWED_HOSTS = ['twitter-vis-site.tk']
+ALLOWED_HOSTS = [u'yongzhenghuang.com']
 
 # Import local settings.
 try:

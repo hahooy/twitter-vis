@@ -32,7 +32,9 @@ create index on hashtag using gin (hashtag gin_trgm_ops);
 create index on tweet (publish_date);
 
 # https
-nohup uwsgi --https :8000,../tk.cert,../tk.key --module twitter.wsgi > server.out &
+nohup uwsgi --https :8000,../certificate.crt,../private.key --module twitter.wsgi > server.out &
+
+# Go to this url to get SSL cert: https://www.sslforfree.com/create?generate_compatibility&domains=yongzhenghuang.com%20www.yongzhenghuang.co
 
 # Create temp table for long queries
 create table tweets_agged as select s.name as name, 
